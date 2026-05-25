@@ -3,723 +3,766 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>MambApp — Official Digital Platform of Mamburao</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<title>MambApp — Municipality of Mamburao, Occidental Mindoro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,700&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --green-900:#0d2e05;
-  --green-800:#1a4f0c;
-  --green-700:#245e10;
-  --green-600:#2d7415;
-  --green-500:#3a8f1c;
-  --green-400:#52a832;
-  --green-300:#74c44e;
-  --green-100:#e8f5df;
-  --green-50:#f2faea;
-  --red:#c0392b;
-  --red-dark:#a02520;
-  --gold:#c9920a;
+  --ink:#0a1e06;
+  --ink-light:#3d5c2e;
+  --forest:#1b4d10;
+  --forest-mid:#256314;
+  --forest-bright:#2f7a1a;
+  --sage:#5a9442;
+  --leaf:#7ab85c;
+  --mist:#eef5e8;
+  --mist-deep:#ddecd0;
+  --paper:#f8faf5;
   --white:#ffffff;
-  --text:#0d1f07;
-  --text-muted:#4a6035;
-  --border:#d4e8c0;
-  --shadow-sm:0 1px 4px rgba(13,46,5,.08);
-  --shadow-md:0 4px 20px rgba(13,46,5,.12);
-  --shadow-lg:0 12px 48px rgba(13,46,5,.18);
-  --radius-sm:8px;
-  --radius-md:14px;
-  --radius-lg:20px;
-  --radius-xl:28px;
+  --crimson:#b83030;
+  --crimson-dark:#8f2020;
+  --gold:#9a7820;
+  --border:#cde0b8;
+  --border-light:#e4f0d6;
+  --shadow:0 2px 16px rgba(10,30,6,.09);
+  --shadow-lift:0 8px 36px rgba(10,30,6,.15);
 }
 html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;font-size:15px;line-height:1.6;}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden;line-height:1.65;}
 
-/* ── SPLASH ─────────────────────────────────── */
-#splash{
-  position:fixed;inset:0;z-index:9999;
-  background:linear-gradient(160deg,var(--green-900) 0%,var(--green-800) 45%,var(--green-600) 100%);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:40px;
-  transition:opacity .9s ease,visibility .9s ease;
-}
-#splash::after{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 70% 50% at 50% 40%,rgba(116,196,78,.12) 0%,transparent 70%);
-}
-#splash.hidden{opacity:0;visibility:hidden;pointer-events:none;}
-.sp-logo{
-  width:140px;height:165px;background:transparent;
+/* ══════════ INTRO SCREEN ══════════ */
+#intro{
+  position:fixed;inset:0;z-index:9000;
   display:flex;align-items:center;justify-content:center;
-  margin-bottom:16px;animation:popIn .8s cubic-bezier(.34,1.56,.64,1) both;
-  position:relative;z-index:1;overflow:visible;
+  background:var(--forest);
+  transition:opacity .8s ease, visibility .8s ease;
 }
-.sp-logo svg{width:140px;height:165px;}
-.sp-headline{
-  font-family:'Playfair Display',serif;font-size:clamp(2rem,6vw,3.4rem);
-  color:white;font-weight:800;line-height:1.15;
-  animation:riseUp .6s .3s both;position:relative;z-index:1;
+#intro.gone{opacity:0;visibility:hidden;pointer-events:none;}
+.intro-inner{
+  text-align:center;padding:40px 28px;
+  display:flex;flex-direction:column;align-items:center;gap:0;
 }
-.sp-headline em{font-style:italic;color:#a8d880;}
-.sp-sub{
-  font-size:.95rem;color:rgba(255,255,255,.72);margin-top:12px;
-  max-width:380px;line-height:1.8;animation:riseUp .6s .45s both;
-  position:relative;z-index:1;font-weight:400;
+.intro-logo{
+  width:120px;height:120px;margin-bottom:32px;
+  animation:logoEntry 1s cubic-bezier(.34,1.4,.64,1) both;
 }
-.sp-btn{
-  margin-top:36px;background:white;color:var(--green-800);border:none;
-  padding:14px 52px;border-radius:50px;font-size:.95rem;font-weight:700;
-  cursor:pointer;box-shadow:0 6px 28px rgba(0,0,0,.25);
-  animation:riseUp .6s .6s both;transition:transform .2s,box-shadow .2s;
-  font-family:'Inter',sans-serif;letter-spacing:.3px;position:relative;z-index:1;
+.intro-greeting{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.9rem,5vw,3rem);
+  font-style:italic;color:white;
+  font-weight:500;letter-spacing:-.3px;line-height:1.2;
+  animation:fadeSlide .7s .35s both;
 }
-.sp-btn:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(0,0,0,.3);}
-.sp-flag{
-  display:flex;align-items:center;gap:8px;margin-top:20px;
-  font-size:.78rem;color:rgba(255,255,255,.45);font-weight:500;letter-spacing:.5px;
-  animation:riseUp .6s .72s both;position:relative;z-index:1;
-  text-transform:uppercase;
+.intro-greeting strong{font-style:normal;font-weight:700;color:#b8dea0;}
+.intro-tagline{
+  font-size:.88rem;color:rgba(255,255,255,.6);margin-top:14px;
+  font-weight:400;letter-spacing:.4px;
+  animation:fadeSlide .7s .55s both;
 }
-@keyframes popIn{from{transform:scale(.15) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
-@keyframes riseUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.intro-enter{
+  margin-top:38px;
+  background:white;color:var(--forest);border:none;
+  padding:13px 48px;border-radius:3px;
+  font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:700;
+  letter-spacing:.8px;text-transform:uppercase;cursor:pointer;
+  box-shadow:0 6px 24px rgba(0,0,0,.22);
+  transition:background .2s,transform .2s,box-shadow .2s;
+  animation:fadeSlide .7s .75s both;
+}
+.intro-enter:hover{background:var(--mist);transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.28);}
+@keyframes logoEntry{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── NAV ─────────────────────────────────────── */
+/* ══════════ NAV ══════════ */
 nav{
-  position:sticky;top:0;z-index:300;
-  background:var(--green-800);
+  position:sticky;top:0;z-index:500;
+  background:var(--forest);height:60px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;height:64px;
-  box-shadow:0 2px 20px rgba(0,0,0,.3);
+  padding:0 36px;
+  box-shadow:0 1px 0 rgba(255,255,255,.07), 0 4px 24px rgba(0,0,0,.25);
 }
-.nav-brand{display:flex;align-items:center;gap:10px;}
-.nav-logo-wrap{
-  width:42px;height:48px;background:transparent;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;overflow:visible;
+.nav-left{display:flex;align-items:center;gap:14px;}
+.nav-logomark{width:34px;height:34px;flex-shrink:0;}
+.nav-wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.35rem;font-weight:700;color:white;letter-spacing:.5px;
 }
-.nav-logo-wrap svg{width:42px;height:48px;}
-.nav-name{
-  color:white;font-size:1.15rem;font-weight:800;letter-spacing:2px;
-  font-family:'Playfair Display',serif;
+.nav-sep{width:1px;height:22px;background:rgba(255,255,255,.2);margin:0 4px;}
+.nav-place{
+  font-size:.7rem;font-weight:500;color:rgba(255,255,255,.5);
+  letter-spacing:.6px;text-transform:uppercase;
 }
-.nav-tagline{color:rgba(255,255,255,.55);font-size:.7rem;font-weight:500;letter-spacing:.8px;text-transform:uppercase;margin-left:2px;}
-.nav-brand-text{display:flex;flex-direction:column;line-height:1.2;}
-.nav-actions{display:flex;align-items:center;gap:10px;}
-.btn-emer{
-  background:var(--red);color:white;border:none;
-  padding:9px 18px;border-radius:22px;
-  font-weight:700;font-size:.78rem;cursor:pointer;
-  display:flex;align-items:center;gap:6px;
-  animation:glowPulse 2.5s infinite;
-  transition:background .2s,transform .2s;font-family:'Inter',sans-serif;
-  letter-spacing:.3px;
+.nav-right{display:flex;align-items:center;gap:10px;}
+.nav-links{display:flex;gap:2px;}
+.nav-link{
+  color:rgba(255,255,255,.65);font-size:.8rem;font-weight:500;
+  padding:7px 13px;border-radius:4px;cursor:pointer;
+  transition:color .18s,background .18s;letter-spacing:.2px;
+  background:transparent;border:none;font-family:'DM Sans',sans-serif;
 }
-.btn-emer:hover{background:var(--red-dark);transform:scale(1.04);}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(192,57,43,.55)}50%{box-shadow:0 0 0 8px rgba(192,57,43,0)}}
+.nav-link:hover{color:white;background:rgba(255,255,255,.1);}
+.btn-alert{
+  background:var(--crimson);color:white;border:none;
+  padding:8px 18px;border-radius:3px;
+  font-family:'DM Sans',sans-serif;font-size:.77rem;font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;cursor:pointer;
+  transition:background .18s;
+}
+.btn-alert:hover{background:var(--crimson-dark);}
 
-/* ── HERO ──────────────────────────────────────── */
+/* ══════════ HERO ══════════ */
 #hero{
-  background:linear-gradient(155deg,var(--green-900) 0%,var(--green-800) 40%,var(--green-600) 80%,var(--green-400) 100%);
-  min-height:94vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  text-align:center;padding:80px 28px 60px;position:relative;overflow:hidden;
+  min-height:90vh;
+  background:var(--forest);
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:0;
+  position:relative;overflow:hidden;
 }
-#hero::before{
-  content:'';position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(circle 700px at 10% 20%,rgba(255,255,255,.03) 0%,transparent 70%),
-    radial-gradient(circle 500px at 90% 80%,rgba(0,0,0,.06) 0%,transparent 60%);
+.hero-texture{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,.025) 80px),
+    repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,.025) 80px);
 }
-.hero-logo{
-  width:150px;height:172px;background:transparent;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:16px;position:relative;z-index:1;overflow:visible;flex-shrink:0;
+.hero-left{
+  padding:80px 60px 80px 72px;
+  position:relative;z-index:1;
 }
-.hero-logo svg{width:150px;height:172px;}
 .hero-eyebrow{
-  font-size:.75rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
-  color:rgba(255,255,255,.55);margin-bottom:14px;position:relative;z-index:1;
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--leaf);margin-bottom:22px;
 }
-.hero-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.6rem,7vw,4.4rem);color:white;font-weight:800;
-  line-height:1.1;position:relative;z-index:1;
-  text-shadow:0 4px 24px rgba(0,0,0,.3);
+.hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--leaf);}
+.hero-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.6rem,4.5vw,4.2rem);
+  color:white;font-weight:700;line-height:1.1;
+  letter-spacing:-.5px;
 }
-.hero-title em{font-style:italic;color:#a8d880;}
-.hero-desc{
-  font-size:.98rem;color:rgba(255,255,255,.78);margin-top:16px;
-  max-width:600px;line-height:1.9;position:relative;z-index:1;font-weight:400;
+.hero-headline em{font-style:italic;color:#b8dea0;}
+.hero-body{
+  margin-top:20px;
+  font-size:.95rem;color:rgba(255,255,255,.7);
+  line-height:1.85;max-width:440px;font-weight:300;
 }
-.hero-badges{
-  display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;justify-content:center;
+.hero-actions{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap;}
+.btn-primary{
+  background:white;color:var(--forest);border:none;
+  padding:13px 30px;border-radius:3px;
+  font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;cursor:pointer;
+  transition:background .2s,box-shadow .2s;
+}
+.btn-primary:hover{background:var(--mist);box-shadow:0 6px 20px rgba(0,0,0,.2);}
+.btn-outline{
+  background:transparent;color:rgba(255,255,255,.85);
+  border:1.5px solid rgba(255,255,255,.35);
+  padding:12px 28px;border-radius:3px;
+  font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:600;
+  letter-spacing:.4px;text-transform:uppercase;cursor:pointer;
+  transition:border-color .2s,color .2s;
+}
+.btn-outline:hover{border-color:rgba(255,255,255,.7);color:white;}
+.hero-right{
   position:relative;z-index:1;
-}
-.badge{
-  background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);
-  border:1px solid rgba(255,255,255,.22);padding:6px 14px;
-  border-radius:20px;font-size:.75rem;font-weight:600;letter-spacing:.3px;
-  backdrop-filter:blur(6px);
-}
-.hero-scroll{
-  margin-top:52px;display:flex;flex-direction:column;align-items:center;gap:8px;
-  color:rgba(255,255,255,.4);font-size:.78rem;letter-spacing:.5px;
-  position:relative;z-index:1;
-}
-.scroll-dot{
-  width:28px;height:44px;border:2px solid rgba(255,255,255,.25);
-  border-radius:14px;position:relative;
-}
-.scroll-dot::after{
-  content:'';width:4px;height:4px;background:rgba(255,255,255,.5);
-  border-radius:50%;position:absolute;left:50%;top:8px;transform:translateX(-50%);
-  animation:scrollAnim 1.8s infinite;
-}
-@keyframes scrollAnim{0%{opacity:1;top:8px}100%{opacity:0;top:28px}}
-
-/* ── SECTION SHARED ──────────────────────────── */
-section{padding:80px 28px;}
-.section-label{
-  display:inline-block;font-size:.72rem;font-weight:700;
-  letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--green-500);margin-bottom:12px;
-}
-.section-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.7rem,4vw,2.4rem);color:var(--green-900);font-weight:700;
-  line-height:1.25;
-}
-.section-title em{font-style:italic;color:var(--green-600);}
-.section-sub{color:var(--text-muted);margin-top:10px;font-size:.93rem;line-height:1.75;max-width:600px;}
-.section-head-wrap{margin-bottom:52px;}
-.section-head-wrap.centered{text-align:center;}
-.section-head-wrap.centered .section-sub{margin-left:auto;margin-right:auto;}
-
-/* ── QUICK STATS BAR ────────────────────────── */
-#stats-bar{
-  background:var(--green-50);border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);padding:0 28px;
-}
-.stats-inner{
-  max-width:1080px;margin:0 auto;
-  display:flex;align-items:stretch;justify-content:space-around;flex-wrap:wrap;
-}
-.stat-item{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:22px 20px;border-right:1px solid var(--border);flex:1;min-width:140px;
+  padding:80px 72px 80px 40px;
 }
-.stat-item:last-child{border-right:none;}
-.stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--green-800);}
-.stat-lbl{font-size:.72rem;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text-muted);margin-top:2px;}
+.hero-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;max-width:360px;
+}
+.hstat{
+  background:rgba(255,255,255,.06);
+  padding:28px 24px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.hstat:first-child{border-radius:6px 0 0 0;}
+.hstat:nth-child(2){border-radius:0 6px 0 0;}
+.hstat:nth-child(3){border-radius:0 0 0 6px;}
+.hstat:last-child{border-radius:0 0 6px 0;}
+.hstat-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem;font-weight:700;color:white;line-height:1;
+}
+.hstat-lbl{font-size:.73rem;color:rgba(255,255,255,.5);margin-top:6px;font-weight:500;letter-spacing:.4px;}
 
-/* ── SERVICES ────────────────────────────────── */
-#services{background:white;}
-.services-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
-  gap:16px;max-width:1080px;margin:0 auto;
+/* ══════════ DIVIDER BAR ══════════ */
+.divider-bar{
+  background:var(--paper);border-top:1px solid var(--border-light);
+  border-bottom:1px solid var(--border-light);
+  padding:0 36px;
 }
-.s-card{
-  background:var(--white);border:1.5px solid var(--border);
-  border-radius:var(--radius-lg);padding:28px 22px;
-  cursor:pointer;transition:all .25s;position:relative;overflow:hidden;
+.divider-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:stretch;
 }
-.s-card::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--green-500),var(--green-300));
-  transform:scaleX(0);transition:transform .25s;transform-origin:left;
+.ditem{
+  flex:1;padding:18px 24px;
+  border-right:1px solid var(--border-light);
+  display:flex;align-items:center;gap:12px;
 }
-.s-card:hover{
-  border-color:var(--green-400);
-  box-shadow:var(--shadow-md);transform:translateY(-4px);
-}
-.s-card:hover::after{transform:scaleX(1);}
-.s-icon{
-  width:52px;height:52px;border-radius:14px;
+.ditem:last-child{border-right:none;}
+.ditem-icon{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--forest);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.55rem;margin-bottom:16px;
-}
-.s-card h3{font-size:.93rem;font-weight:700;color:var(--green-900);margin-bottom:6px;}
-.s-card p{font-size:.8rem;color:var(--text-muted);line-height:1.6;}
-.s-card-arrow{
-  position:absolute;top:18px;right:18px;
-  font-size:.8rem;color:var(--border);transition:color .2s;
-}
-.s-card:hover .s-card-arrow{color:var(--green-400);}
-
-/* ── TRANSPARENCY ──────────────────────────── */
-#transparency{background:var(--green-50);}
-.t-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:16px;max-width:1080px;margin:0 auto;
-}
-.t-card{
-  background:white;border:1.5px solid var(--border);
-  border-radius:var(--radius-lg);padding:26px 22px;
-  cursor:pointer;transition:all .25s;
-  display:flex;flex-direction:column;
-}
-.t-card:hover{border-color:var(--green-500);box-shadow:var(--shadow-md);transform:translateY(-4px);}
-.t-icon{font-size:2rem;margin-bottom:12px;}
-.t-card h3{font-size:.92rem;font-weight:700;color:var(--green-900);margin-bottom:5px;}
-.t-card p{font-size:.79rem;color:var(--text-muted);line-height:1.6;}
-.t-card .t-cta{
-  margin-top:auto;padding-top:16px;
-  font-size:.76rem;font-weight:700;color:var(--green-600);letter-spacing:.3px;
-}
-
-/* ── BARANGAY DIRECTORY ─────────────────────── */
-#barangay{background:white;}
-.brgy-intro{
-  max-width:640px;color:var(--text-muted);font-size:.9rem;line-height:1.75;
-  margin-bottom:36px;
-}
-.brgy-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;}
-.brgy-tab{
-  padding:7px 16px;border-radius:20px;border:1.5px solid var(--border);
-  font-size:.79rem;font-weight:600;cursor:pointer;color:var(--text-muted);
-  transition:all .2s;background:white;font-family:'Inter',sans-serif;
-}
-.brgy-tab.active,.brgy-tab:hover{background:var(--green-800);color:white;border-color:var(--green-800);}
-.brgy-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-  gap:12px;max-width:1080px;margin:0 auto 32px;
-}
-.brgy-card{
-  background:var(--green-50);border:1.5px solid var(--border);
-  border-radius:var(--radius-md);padding:18px 16px;
-  cursor:pointer;transition:all .2s;
-}
-.brgy-card:hover{background:white;border-color:var(--green-500);box-shadow:var(--shadow-sm);transform:translateY(-2px);}
-.brgy-card-icon{font-size:1.3rem;margin-bottom:7px;}
-.brgy-card-name{font-size:.88rem;font-weight:700;color:var(--green-900);line-height:1.3;margin-bottom:3px;}
-.brgy-card-type{font-size:.7rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;}
-.brgy-note{
-  background:var(--green-50);border:1.5px solid var(--border);
-  border-radius:var(--radius-md);padding:16px 20px;
-  font-size:.83rem;color:var(--text-muted);line-height:1.65;
-  max-width:1080px;margin:0 auto 12px;
-}
-.brgy-note strong{color:var(--green-800);}
-.brgy-link{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--green-800);color:white;
-  padding:12px 24px;border-radius:var(--radius-md);text-decoration:none;
-  font-size:.84rem;font-weight:700;transition:background .2s;margin-top:8px;
-}
-.brgy-link:hover{background:var(--green-900);}
-
-/* ── ABOUT ─────────────────────────────────── */
-#about{background:var(--green-50);}
-.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:48px;max-width:1080px;margin:0 auto;align-items:start;}
-.about-text p{color:var(--text-muted);line-height:1.85;font-size:.93rem;margin-top:14px;}
-.about-text p:first-child{margin-top:0;}
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-.astat{
-  background:white;border:1.5px solid var(--border);
-  border-radius:var(--radius-md);padding:20px 18px;
-}
-.astat-num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--green-800);line-height:1;}
-.astat-lbl{font-size:.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-top:5px;}
-.history-box{
-  background:var(--green-800);border-radius:var(--radius-lg);padding:28px 26px;
-  color:rgba(255,255,255,.85);font-size:.87rem;line-height:1.85;margin-top:24px;
-}
-.history-box strong{color:white;}
-
-/* ── MODAL ──────────────────────────────────── */
-.modal-overlay{
-  display:none;position:fixed;inset:0;
-  background:rgba(13,30,7,.65);z-index:600;
-  align-items:center;justify-content:center;
-  backdrop-filter:blur(6px);padding:16px;
-}
-.modal-overlay.open{display:flex;}
-.modal-box{
-  background:white;border-radius:var(--radius-xl);
-  max-width:540px;width:100%;max-height:90vh;overflow-y:auto;
-  padding:36px 30px;position:relative;
-  box-shadow:0 28px 80px rgba(0,0,0,.35);
-  animation:modalPop .28s cubic-bezier(.34,1.4,.64,1);
-}
-@keyframes modalPop{from{transform:scale(.86) translateY(16px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
-.m-close{
-  position:absolute;top:16px;right:16px;
-  background:var(--green-50);border:1.5px solid var(--border);
-  border-radius:50%;width:34px;height:34px;
-  font-size:.85rem;cursor:pointer;color:var(--text);
-  display:flex;align-items:center;justify-content:center;
-  transition:background .2s;font-weight:700;
-}
-.m-close:hover{background:var(--border);}
-.m-icon{font-size:2.4rem;margin-bottom:10px;}
-.m-title{
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem;font-weight:700;color:var(--green-900);margin-bottom:6px;
-}
-.m-desc{font-size:.85rem;color:var(--text-muted);line-height:1.7;margin-bottom:18px;}
-.tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
-.tab{
-  padding:6px 14px;border-radius:18px;border:1.5px solid var(--border);
-  background:white;font-size:.77rem;font-weight:600;cursor:pointer;
-  color:var(--text-muted);transition:all .18s;font-family:'Inter',sans-serif;
-}
-.tab.on,.tab:hover{background:var(--green-800);color:white;border-color:var(--green-800);}
-.pane{display:none;}
-.pane.on{display:block;}
-.fr{margin-bottom:13px;}
-.fr label{display:block;font-size:.77rem;font-weight:700;color:var(--green-800);margin-bottom:4px;letter-spacing:.2px;}
-.fr input,.fr select,.fr textarea{
-  width:100%;padding:10px 13px;border:1.5px solid var(--border);
-  border-radius:var(--radius-sm);font-size:.85rem;outline:none;
-  transition:border .18s;font-family:'Inter',sans-serif;color:var(--text);
-  background:white;
-}
-.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:var(--green-500);}
-.fr textarea{height:80px;resize:vertical;}
-.btn-submit{
-  background:var(--green-800);color:white;border:none;
-  padding:12px;border-radius:var(--radius-sm);font-size:.88rem;
-  font-weight:700;cursor:pointer;width:100%;margin-top:8px;
-  transition:background .2s;font-family:'Inter',sans-serif;letter-spacing:.2px;
-}
-.btn-submit:hover{background:var(--green-900);}
-.info-list{list-style:none;}
-.info-list li{
-  display:flex;align-items:flex-start;gap:12px;padding:9px 0;
-  border-bottom:1px solid var(--green-50);font-size:.84rem;
-}
-.info-list li:last-child{border:none;}
-.sn{
-  min-width:26px;height:26px;background:var(--green-600);color:white;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-size:.72rem;font-weight:700;flex-shrink:0;
-}
-.ann{
-  border-left:3px solid var(--green-400);
-  padding:11px 14px;margin-bottom:11px;
-  background:var(--green-50);border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-}
-.ann h4{font-size:.85rem;font-weight:700;color:var(--green-900);}
-.ann p{font-size:.78rem;color:var(--text-muted);margin-top:3px;line-height:1.55;}
-.ann .dt{font-size:.72rem;color:#9aab90;margin-top:5px;}
-.chip{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.72rem;font-weight:700;margin-left:6px;}
-.chip-open{background:#e4f5e0;color:#2e7d32;}
-.succ{
-  background:var(--green-50);border:1.5px solid var(--green-300);
-  border-radius:var(--radius-sm);padding:14px;text-align:center;
-  font-weight:700;color:var(--green-800);display:none;margin-top:12px;
-  font-size:.87rem;
-}
-.succ.on{display:block;}
-.bill-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.bill-tile{
-  border:1.5px solid var(--border);border-radius:var(--radius-sm);
-  padding:14px 10px;cursor:pointer;text-align:center;transition:all .18s;
-}
-.bill-tile:hover,.bill-tile.sel{border-color:var(--green-500);background:var(--green-50);}
-.bill-tile .bi{font-size:1.6rem;margin-bottom:5px;}
-.bill-tile span{font-size:.77rem;font-weight:700;color:var(--green-900);display:block;}
-.bar-wrap{background:var(--green-50);border-radius:var(--radius-sm);padding:13px;margin-bottom:10px;}
-.bar-label{display:flex;justify-content:space-between;font-size:.8rem;font-weight:600;margin-bottom:5px;color:var(--text);}
-.bar{background:var(--border);border-radius:4px;height:8px;}
-.bar-fill{height:100%;border-radius:4px;}
-.a-link{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--green-800);color:white;text-align:center;
-  padding:12px;border-radius:var(--radius-sm);text-decoration:none;
-  font-weight:700;margin-top:14px;transition:background .2s;font-size:.85rem;
-}
-.a-link:hover{background:var(--green-900);}
-
-/* ── SIDEBAR ──────────────────────────────── */
-#sidebar{
-  position:fixed;right:-390px;top:0;height:100%;width:370px;
-  background:white;border-left:1px solid var(--border);
-  box-shadow:-8px 0 40px rgba(0,0,0,.18);
-  z-index:800;transition:right .38s cubic-bezier(.2,1,.3,1);overflow-y:auto;
-}
-#sidebar.open{right:0;}
-.sb-head{
-  background:linear-gradient(135deg,#7f1d1d,var(--red));
-  padding:22px 20px 18px;display:flex;align-items:center;justify-content:space-between;
-}
-.sb-title{color:white;font-size:.95rem;font-weight:800;letter-spacing:.3px;}
-.sb-sub{color:rgba(255,255,255,.65);font-size:.72rem;margin-top:2px;}
-.sb-close{
-  background:rgba(255,255,255,.15);border:none;color:white;
-  width:32px;height:32px;border-radius:50%;font-size:.9rem;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
 }
-.sb-alert{
-  background:#fff8f0;padding:12px 18px;font-size:.76rem;
-  color:#7a4400;border-bottom:1px solid #ffd9b0;line-height:1.5;
+.ditem-icon svg{width:16px;height:16px;}
+.ditem-text strong{display:block;font-size:.82rem;font-weight:700;color:var(--ink);}
+.ditem-text span{font-size:.72rem;color:var(--ink-light);}
+
+/* ══════════ SECTIONS ══════════ */
+section{padding:88px 36px;}
+.sec-inner{max-width:1100px;margin:0 auto;}
+.sec-label{
+  font-size:.68rem;font-weight:700;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--sage);margin-bottom:10px;display:block;
 }
-.sb-section-label{
-  padding:14px 18px 6px;font-size:.68rem;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);
+.sec-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  color:var(--forest);font-weight:700;line-height:1.2;
 }
-.hl-list{padding:0 14px 18px;}
-.hl-item{
-  border:1.5px solid var(--border);border-radius:var(--radius-md);
+.sec-title em{font-style:italic;}
+.sec-sub{
+  margin-top:10px;color:var(--ink-light);
+  font-size:.9rem;line-height:1.8;max-width:560px;font-weight:400;
+}
+.sec-head{margin-bottom:52px;}
+.sec-head.center{text-align:center;}
+.sec-head.center .sec-sub{margin-left:auto;margin-right:auto;}
+
+/* ══════════ SERVICES ══════════ */
+#services{background:var(--white);}
+.svc-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;border:1px solid var(--border);border-radius:6px;overflow:hidden;
+}
+.svc-card{
+  padding:32px 26px;cursor:pointer;transition:background .2s;
+  border-right:1px solid var(--border);border-bottom:1px solid var(--border);
+  position:relative;
+}
+.svc-card:nth-child(4n){border-right:none;}
+.svc-card:nth-last-child(-n+4){border-bottom:none;}
+.svc-card:hover{background:var(--mist);}
+.svc-card:hover .svc-arrow{opacity:1;transform:translateX(0);}
+.svc-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem;font-weight:700;color:var(--mist-deep);
+  line-height:1;margin-bottom:16px;
+}
+.svc-icon-wrap{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--forest);margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+}
+.svc-icon-wrap svg{width:20px;height:20px;}
+.svc-title{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:6px;}
+.svc-desc{font-size:.78rem;color:var(--ink-light);line-height:1.65;}
+.svc-arrow{
+  position:absolute;bottom:22px;right:22px;
+  color:var(--sage);font-size:.8rem;font-weight:700;
+  opacity:0;transform:translateX(-4px);transition:all .2s;
+  letter-spacing:.5px;
+}
+
+/* ══════════ TRANSPARENCY ══════════ */
+#transparency{background:var(--paper);}
+.trans-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.trans-card{
+  background:white;border:1px solid var(--border);border-radius:6px;
+  padding:28px 24px;cursor:pointer;transition:all .22s;
+  display:flex;flex-direction:column;
+}
+.trans-card:hover{border-color:var(--sage);box-shadow:var(--shadow-lift);transform:translateY(-3px);}
+.trans-card-icon{
+  width:40px;height:40px;border-radius:4px;
+  background:var(--forest);margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.trans-card-icon svg{width:18px;height:18px;}
+.trans-card h3{font-size:.9rem;font-weight:700;color:var(--ink);margin-bottom:7px;}
+.trans-card p{font-size:.79rem;color:var(--ink-light);line-height:1.65;flex:1;}
+.trans-cta{
+  margin-top:18px;font-size:.75rem;font-weight:700;
+  color:var(--forest-bright);letter-spacing:.4px;text-transform:uppercase;
+}
+
+/* ══════════ BARANGAY ══════════ */
+#barangay{background:white;}
+.brgy-filter{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap;}
+.bfbtn{
+  padding:7px 18px;border:1.5px solid var(--border);border-radius:3px;
+  font-size:.77rem;font-weight:600;letter-spacing:.4px;text-transform:uppercase;
+  cursor:pointer;background:white;color:var(--ink-light);
+  transition:all .18s;font-family:'DM Sans',sans-serif;
+}
+.bfbtn.on,.bfbtn:hover{background:var(--forest);color:white;border-color:var(--forest);}
+.brgy-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));
+  gap:10px;margin-bottom:28px;
+}
+.brgy-card{
+  border:1px solid var(--border);border-radius:5px;padding:18px 16px;
+  cursor:pointer;transition:all .18s;background:white;
+}
+.brgy-card:hover{border-color:var(--forest);background:var(--paper);box-shadow:var(--shadow);}
+.bc-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:700;color:var(--mist-deep);
+  line-height:1;margin-bottom:8px;
+}
+.bc-name{font-size:.86rem;font-weight:700;color:var(--ink);line-height:1.3;margin-bottom:3px;}
+.bc-type{font-size:.69rem;font-weight:600;color:var(--ink-light);letter-spacing:.6px;text-transform:uppercase;}
+.brgy-maplink{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--forest);color:white;text-decoration:none;
+  padding:11px 22px;border-radius:3px;font-size:.8rem;font-weight:700;
+  letter-spacing:.4px;text-transform:uppercase;transition:background .18s;
+}
+.brgy-maplink:hover{background:var(--ink);}
+
+/* ══════════ ABOUT ══════════ */
+#about{background:var(--paper);}
+.about-layout{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:72px;align-items:start;
+}
+.about-text p{
+  font-size:.92rem;color:var(--ink-light);line-height:1.9;
+  margin-bottom:16px;
+}
+.about-text p strong{color:var(--ink);font-weight:700;}
+.about-pull{
+  margin:32px 0;padding-left:24px;
+  border-left:3px solid var(--leaf);
+}
+.about-pull p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-style:italic;color:var(--forest);
+  line-height:1.7;margin:0;
+}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.astat{
+  background:white;border:1px solid var(--border);border-radius:5px;
+  padding:22px 20px;
+}
+.astat-n{
+  font-family:'Cormorant Garamond',serif;
+  font-size:2rem;font-weight:700;color:var(--forest);line-height:1;
+}
+.astat-l{font-size:.7rem;font-weight:600;color:var(--ink-light);text-transform:uppercase;letter-spacing:.7px;margin-top:6px;}
+.about-note{
+  margin-top:14px;background:var(--forest);border-radius:5px;
+  padding:24px 22px;color:rgba(255,255,255,.8);font-size:.85rem;line-height:1.8;
+}
+.about-note strong{color:white;}
+
+/* ══════════ MODAL ══════════ */
+.modal-bg{
+  display:none;position:fixed;inset:0;
+  background:rgba(5,15,3,.72);z-index:700;
+  align-items:center;justify-content:center;
+  backdrop-filter:blur(5px);padding:20px;
+}
+.modal-bg.open{display:flex;}
+.modal-box{
+  background:white;border-radius:8px;
+  max-width:560px;width:100%;max-height:88vh;overflow-y:auto;
+  padding:40px 36px;position:relative;
+  box-shadow:0 32px 80px rgba(0,0,0,.38);
+  animation:mboxIn .26s cubic-bezier(.34,1.3,.64,1);
+}
+@keyframes mboxIn{from{transform:translateY(20px) scale(.95);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
+.m-close{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;border-radius:50%;
+  background:var(--paper);border:1px solid var(--border);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;color:var(--ink);font-weight:700;transition:background .18s;
+}
+.m-close:hover{background:var(--mist-deep);}
+.m-label{
+  font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--sage);margin-bottom:8px;display:block;
+}
+.m-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.6rem;font-weight:700;color:var(--forest);
+  margin-bottom:6px;line-height:1.2;
+}
+.m-desc{font-size:.84rem;color:var(--ink-light);line-height:1.7;margin-bottom:20px;}
+.m-tabs{display:flex;gap:4px;margin-bottom:22px;border-bottom:1px solid var(--border);padding-bottom:0;}
+.m-tab{
+  padding:8px 16px;font-size:.78rem;font-weight:600;cursor:pointer;
+  border:none;background:transparent;color:var(--ink-light);
+  border-bottom:2.5px solid transparent;margin-bottom:-1px;
+  transition:color .18s,border-color .18s;font-family:'DM Sans',sans-serif;
+  letter-spacing:.2px;
+}
+.m-tab.on{color:var(--forest);border-bottom-color:var(--forest);font-weight:700;}
+.m-pane{display:none;}
+.m-pane.on{display:block;}
+.mfr{margin-bottom:14px;}
+.mfr label{
+  display:block;font-size:.75rem;font-weight:700;
+  color:var(--ink);margin-bottom:5px;letter-spacing:.3px;text-transform:uppercase;
+}
+.mfr input,.mfr select,.mfr textarea{
+  width:100%;padding:10px 13px;border:1.5px solid var(--border);
+  border-radius:4px;font-size:.86rem;outline:none;
+  transition:border .18s;font-family:'DM Sans',sans-serif;color:var(--ink);background:white;
+}
+.mfr input:focus,.mfr select:focus,.mfr textarea:focus{border-color:var(--forest);}
+.mfr textarea{height:84px;resize:vertical;}
+.m-submit{
+  background:var(--forest);color:white;border:none;
+  padding:12px;border-radius:4px;
+  font-size:.84rem;font-weight:700;cursor:pointer;width:100%;margin-top:8px;
+  transition:background .18s;font-family:'DM Sans',sans-serif;letter-spacing:.4px;
+  text-transform:uppercase;
+}
+.m-submit:hover{background:var(--ink);}
+.m-list{list-style:none;}
+.m-list li{
+  display:flex;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--border-light);font-size:.84rem;
+}
+.m-list li:last-child{border:none;}
+.m-dot{
+  width:24px;height:24px;border-radius:50%;background:var(--forest);
+  color:white;display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:1px;
+}
+.m-ann{
+  border-left:3px solid var(--leaf);
+  background:var(--paper);border-radius:0 4px 4px 0;
   padding:12px 14px;margin-bottom:10px;
-  display:flex;align-items:center;gap:12px;cursor:pointer;
+}
+.m-ann h4{font-size:.86rem;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.m-ann p{font-size:.79rem;color:var(--ink-light);line-height:1.6;}
+.m-ann-date{font-size:.7rem;color:#96a88a;margin-top:5px;}
+.m-tag{
+  display:inline-block;padding:2px 8px;border-radius:2px;
+  font-size:.68rem;font-weight:700;margin-left:6px;letter-spacing:.4px;text-transform:uppercase;
+}
+.m-tag-open{background:#d8f0cc;color:#2a6b15;}
+.m-succ{
+  background:var(--mist);border:1px solid var(--leaf);
+  border-radius:4px;padding:14px;text-align:center;
+  font-weight:600;color:var(--forest);display:none;margin-top:12px;font-size:.87rem;
+}
+.m-succ.on{display:block;}
+.bill-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.bill-tile{
+  border:1.5px solid var(--border);border-radius:4px;
+  padding:14px 10px;cursor:pointer;text-align:center;transition:all .18s;
+}
+.bill-tile:hover,.bill-tile.sel{border-color:var(--forest);background:var(--mist);}
+.bill-tile-label{font-size:.78rem;font-weight:700;color:var(--ink);}
+.bar-row{background:var(--paper);border-radius:4px;padding:12px 14px;margin-bottom:9px;}
+.bar-top{display:flex;justify-content:space-between;font-size:.8rem;font-weight:600;margin-bottom:5px;}
+.bar-bg{background:var(--border);border-radius:3px;height:7px;}
+.bar-fill{height:100%;border-radius:3px;}
+.m-link{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--forest);color:white;text-decoration:none;
+  padding:12px;border-radius:4px;font-weight:700;margin-top:14px;
+  font-size:.84rem;letter-spacing:.3px;transition:background .18s;
+}
+.m-link:hover{background:var(--ink);}
+
+/* ══════════ HOTLINES SIDEBAR ══════════ */
+#hsidebar{
+  position:fixed;right:-400px;top:0;height:100%;width:380px;
+  background:white;border-left:1px solid var(--border);
+  box-shadow:-8px 0 48px rgba(0,0,0,.18);
+  z-index:800;transition:right .34s cubic-bezier(.22,1,.3,1);overflow-y:auto;
+}
+#hsidebar.open{right:0;}
+.hs-head{
+  background:linear-gradient(135deg,#7a1a1a,var(--crimson));
+  padding:22px 22px 18px;
+  display:flex;align-items:flex-start;justify-content:space-between;
+}
+.hs-head-text{}
+.hs-head-title{color:white;font-size:.95rem;font-weight:700;letter-spacing:.3px;}
+.hs-head-sub{color:rgba(255,255,255,.6);font-size:.72rem;margin-top:3px;}
+.hs-close{
+  background:rgba(255,255,255,.15);border:none;color:white;
+  width:30px;height:30px;border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;
+  flex-shrink:0;
+}
+.hs-notice{
+  background:#fff9f0;padding:12px 18px;
+  font-size:.75rem;color:#704a00;line-height:1.6;
+  border-bottom:1px solid #ffe5b0;
+}
+.hs-group-label{
+  padding:16px 18px 6px;
+  font-size:.66rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink-light);
+}
+.hs-list{padding:0 14px 10px;}
+.hs-item{
+  border:1px solid var(--border);border-radius:5px;
+  padding:13px 14px;margin-bottom:8px;
+  display:flex;align-items:center;gap:13px;cursor:pointer;
   transition:all .18s;
 }
-.hl-item:hover{border-color:var(--red);background:#fff5f5;}
-.hl-ico{
-  width:44px;height:44px;border-radius:11px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;flex-shrink:0;
+.hs-item:hover{border-color:var(--crimson);background:#fff5f5;}
+.hs-ico{
+  width:40px;height:40px;border-radius:8px;
+  background:var(--paper);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
 }
-.hl-info{flex:1;}
-.hl-name{font-size:.82rem;font-weight:700;color:var(--text);}
-.hl-num{font-size:.98rem;font-weight:800;color:var(--red);line-height:1.2;}
-.hl-note{font-size:.7rem;color:var(--text-muted);}
-#sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:799;}
-#sb-overlay.open{display:block;}
+.hs-ico svg{width:18px;height:18px;}
+.hs-name{font-size:.81rem;font-weight:700;color:var(--ink);}
+.hs-num{font-size:.98rem;font-weight:800;color:var(--crimson);line-height:1.2;margin-top:1px;}
+.hs-note{font-size:.68rem;color:var(--ink-light);margin-top:1px;}
+#hs-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:799;}
+#hs-overlay.open{display:block;}
 
-/* ── FOOTER ──────────────────────────────── */
-footer{
-  background:var(--green-900);
-  border-top:3px solid var(--green-700);
+/* ══════════ FOOTER ══════════ */
+footer{background:var(--ink);}
+.footer-main{
+  max-width:1100px;margin:0 auto;padding:56px 36px 40px;
+  display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:48px;
 }
-.footer-inner{
-  max-width:1080px;margin:0 auto;padding:48px 28px 32px;
-  display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:36px;
+.ft-brand{}
+.ft-logo{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.ft-logo-mark{width:38px;height:38px;}
+.ft-wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.3rem;font-weight:700;color:white;
 }
-.footer-brand{display:flex;flex-direction:column;gap:12px;}
-.footer-logo{display:flex;align-items:center;gap:10px;}
-.footer-logo-icon{
-  width:38px;height:38px;background:white;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;
+.ft-desc{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.8;}
+.ft-col h4{
+  font-size:.68rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);margin-bottom:14px;
 }
-.footer-logo-icon svg{width:32px;height:32px;}
-.footer-logo-name{color:white;font-size:1.1rem;font-weight:800;font-family:'Playfair Display',serif;}
-.footer-desc{font-size:.8rem;color:rgba(255,255,255,.45);line-height:1.75;}
-.footer-col h4{color:white;font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;}
-.footer-col ul{list-style:none;}
-.footer-col ul li{margin-bottom:8px;}
-.footer-col ul li a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.8rem;transition:color .18s;}
-.footer-col ul li a:hover{color:var(--green-300);}
+.ft-col ul{list-style:none;}
+.ft-col li{margin-bottom:8px;}
+.ft-col a{
+  font-size:.8rem;color:rgba(255,255,255,.5);text-decoration:none;
+  transition:color .18s;
+}
+.ft-col a:hover{color:rgba(255,255,255,.85);}
 .footer-bottom{
-  border-top:1px solid rgba(255,255,255,.08);
-  padding:18px 28px;max-width:1080px;margin:0 auto;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  border-top:1px solid rgba(255,255,255,.07);
+  padding:18px 36px;max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
 }
-.footer-copy{font-size:.75rem;color:rgba(255,255,255,.3);}
-.footer-copy a{color:rgba(255,255,255,.4);text-decoration:none;}
+.footer-copy{font-size:.73rem;color:rgba(255,255,255,.28);}
 
-@media(max-width:800px){
-  nav{padding:0 18px;}
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-left{padding:70px 32px;}
+  .svc-grid{grid-template-columns:1fr 1fr;}
+  .svc-card:nth-child(2n){border-right:none;}
+  .svc-card:nth-child(4n){border-right:1px solid var(--border);}
+  .svc-card:nth-last-child(-n+4){border-bottom:1px solid var(--border);}
+  .svc-card:nth-last-child(-n+2){border-bottom:none;}
+  .trans-grid{grid-template-columns:1fr 1fr;}
   .about-layout{grid-template-columns:1fr;}
-  .footer-inner{grid-template-columns:1fr;}
-  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .footer-main{grid-template-columns:1fr 1fr;}
+  nav{padding:0 20px;}
+  .nav-links{display:none;}
 }
-@media(max-width:540px){
-  section{padding:56px 18px;}
-  .services-grid,.t-grid{grid-template-columns:1fr 1fr;gap:11px;}
-  .s-card{padding:18px 14px;}
+@media(max-width:600px){
+  section{padding:60px 20px;}
+  nav{padding:0 16px;height:56px;}
+  .svc-grid{grid-template-columns:1fr;}
+  .svc-card{border-right:none!important;}
+  .svc-card:not(:last-child){border-bottom:1px solid var(--border)!important;}
+  .trans-grid{grid-template-columns:1fr;}
   .brgy-grid{grid-template-columns:1fr 1fr;}
-  .bill-grid{grid-template-columns:1fr 1fr;}
+  .footer-main{grid-template-columns:1fr;gap:28px;padding:40px 20px 28px;}
+  .footer-bottom{padding:14px 20px;}
+  .divider-bar{display:none;}
+  .modal-box{padding:28px 20px;}
+  .hero-left{padding:50px 22px 60px;}
   .about-stats{grid-template-columns:1fr 1fr;}
-  nav{padding:0 16px;height:58px;}
 }
 </style>
 </head>
 <body>
 
-<!-- ══════════ SPLASH ══════════ -->
-<div id="splash">
-  <div class="sp-logo" id="spLogo"></div>
-  <p class="sp-flag">🇵🇭 &nbsp;Republic of the Philippines — MIMAROPA Region</p>
-  <h1 class="sp-headline">Mamburao<br/><em>Naman!</em></h1>
-  <p class="sp-sub">Your official digital platform for government services, community news, and everything Mamburao.</p>
-  <button class="sp-btn" onclick="closeSplash()">Enter MambApp →</button>
+<!-- ══════════ INTRO ══════════ -->
+<div id="intro">
+  <div class="intro-inner">
+    <div class="intro-logo">
+      <svg id="introSvg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <h1 class="intro-greeting">Mabuhay, <strong>Mga Mambureños!</strong></h1>
+    <p class="intro-tagline">Municipality of Mamburao · Occidental Mindoro · MIMAROPA Region</p>
+    <button class="intro-enter" onclick="closeIntro()">Enter MambApp</button>
+  </div>
 </div>
 
 <!-- ══════════ NAV ══════════ -->
 <nav>
-  <div class="nav-brand">
-    <div class="nav-logo-wrap" id="navLogo"></div>
-    <div class="nav-brand-text">
-      <span class="nav-name">MambApp</span>
-      <span class="nav-tagline">Mamburao, Occidental Mindoro</span>
-    </div>
+  <div class="nav-left">
+    <svg class="nav-logomark" id="navSvg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+    <span class="nav-wordmark">MambApp</span>
+    <div class="nav-sep"></div>
+    <span class="nav-place">Mamburao, Occ. Mindoro</span>
   </div>
-  <div class="nav-actions">
-    <button class="btn-emer" onclick="openSB()">🚨 Emergency Hotlines</button>
+  <div class="nav-right">
+    <div class="nav-links">
+      <button class="nav-link" onclick="scroll2('services')">Services</button>
+      <button class="nav-link" onclick="scroll2('transparency')">Transparency</button>
+      <button class="nav-link" onclick="scroll2('barangay')">Barangays</button>
+      <button class="nav-link" onclick="scroll2('about')">About</button>
+    </div>
+    <button class="btn-alert" onclick="openSidebar()">Emergency Hotlines</button>
   </div>
 </nav>
 
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
-  <div class="hero-logo" id="heroLogo"></div>
-  <p class="hero-eyebrow">Official Digital Platform · Mamburao, Occidental Mindoro</p>
-  <h1 class="hero-title">Mamburao <em>Naman!</em></h1>
-  <p class="hero-desc">Connecting every Mambureño to government services, permits, community updates, emergency hotlines, and everything you need from the Municipality of Mamburao — available 24/7, completely free.</p>
-  <div class="hero-badges">
-    <span class="badge">🏛️ Provincial Capital of Occ. Mindoro</span>
-    <span class="badge">📍 MIMAROPA Region</span>
-    <span class="badge">👥 44,554 Population (2024)</span>
-    <span class="badge">🌾 15 Barangays</span>
-    <span class="badge">✅ 100% Free to Use</span>
+  <div class="hero-texture"></div>
+  <div class="hero-left">
+    <p class="hero-eyebrow">Official Digital Platform · 2026</p>
+    <h1 class="hero-headline">Mamburao<br/><em>Naman.</em></h1>
+    <p class="hero-body">MambApp is the Municipality of Mamburao's official digital gateway — connecting every resident to government services, public records, community information, and emergency contacts. Accessible, transparent, and always free.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="scroll2('services')">Access Services</button>
+      <button class="btn-outline" onclick="openSidebar()">Emergency Hotlines</button>
+    </div>
   </div>
-  <div class="hero-scroll">
-    <div class="scroll-dot"></div>
-    <span>Scroll to explore</span>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">44,554</div>
+        <div class="hstat-lbl">Population (2024)</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">15</div>
+        <div class="hstat-lbl">Barangays</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">283 km²</div>
+        <div class="hstat-lbl">Total Land Area</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">1950</div>
+        <div class="hstat-lbl">Provincial Capital Since</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ══════════ STATS BAR ══════════ -->
-<div id="stats-bar">
-  <div class="stats-inner">
-    <div class="stat-item">
-      <div class="stat-num">44,554</div>
-      <div class="stat-lbl">Populasyon (2024)</div>
+<!-- ══════════ DIVIDER BAR ══════════ -->
+<div class="divider-bar">
+  <div class="divider-inner">
+    <div class="ditem">
+      <div class="ditem-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="ditem-text"><strong>Provincial Capital</strong><span>Occidental Mindoro</span></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">15</div>
-      <div class="stat-lbl">Mga Barangay</div>
+    <div class="ditem">
+      <div class="ditem-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="ditem-text"><strong>MIMAROPA Region</strong><span>Region IV-B</span></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">283.51 km²</div>
-      <div class="stat-lbl">Kabuuang Lawak</div>
+    <div class="ditem">
+      <div class="ditem-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="ditem-text"><strong>2nd Income Class</strong><span>Municipality</span></div>
     </div>
-    <div class="stat-item">
-      <div class="stat-num">1950</div>
-      <div class="stat-lbl">Naging Kabisera</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">12+</div>
-      <div class="stat-lbl">Digital Services</div>
+    <div class="ditem">
+      <div class="ditem-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="ditem-text"><strong>Last Updated</strong><span>May 20, 2026</span></div>
     </div>
   </div>
 </div>
 
 <!-- ══════════ SERVICES ══════════ -->
 <section id="services">
-  <div class="section-head-wrap centered">
-    <span class="section-label">Municipal Services</span>
-    <h2 class="section-title">Mga Serbisyo ng MambApp</h2>
-    <p class="section-sub">I-tap ang kahit anong serbisyo para makapagsimula. Lahat ay libre at available 24/7 para sa bawat Mambureño.</p>
+  <div class="sec-inner">
+    <div class="sec-head center">
+      <span class="sec-label">Municipal Services</span>
+      <h2 class="sec-title">What Can We Help You With?</h2>
+      <p class="sec-sub">Select any service below to get started. All services are free and available to every resident of Mamburao.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
   </div>
-  <div class="services-grid" id="svcGrid"></div>
 </section>
 
 <!-- ══════════ TRANSPARENCY ══════════ -->
 <section id="transparency">
-  <div class="section-head-wrap centered">
-    <span class="section-label">Transparency & Accountability</span>
-    <h2 class="section-title">Open Government</h2>
-    <p class="section-sub">Ang LGU ng Mamburao ay nakatuon sa bukas at tapat na pamamahala. I-access ang lahat ng pampublikong dokumento dito.</p>
-  </div>
-  <div class="t-grid">
-    <div class="t-card" onclick="openTrans('budget')">
-      <div class="t-icon">📊</div>
-      <h3>Budget & Finance</h3>
-      <p>Annual budget, financial statements, at audit reports ng Munisipalidad ng Mamburao.</p>
-      <div class="t-cta">View Reports →</div>
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-label">Open Government</span>
+      <h2 class="sec-title">Transparency &amp; Public Records</h2>
+      <p class="sec-sub">The Municipality of Mamburao is committed to accountable and open governance. All public documents are available here.</p>
     </div>
-    <div class="t-card" onclick="openTrans('projects')">
-      <div class="t-icon">🏗️</div>
-      <h3>Infrastructure Projects</h3>
-      <p>Mga ongoing at completed infrastructure projects ng LGU — status at budget breakdown.</p>
-      <div class="t-cta">View Projects →</div>
-    </div>
-    <div class="t-card" onclick="openTrans('procurement')">
-      <div class="t-icon">📝</div>
-      <h3>Procurement & BAC</h3>
-      <p>Lahat ng bidding documents, awarded contracts, at procurement activities.</p>
-      <div class="t-cta">View BAC Records →</div>
-    </div>
-    <div class="t-card" onclick="openTrans('officials')">
-      <div class="t-icon">👥</div>
-      <h3>Local Officials</h3>
-      <p>Listahan ng lahat ng elected at appointed officials ng Mamburao.</p>
-      <div class="t-cta">View Officials →</div>
-    </div>
-    <div class="t-card" onclick="openTrans('soa')">
-      <div class="t-icon">📄</div>
-      <h3>SALN</h3>
-      <p>Statement of Assets, Liabilities and Net Worth ng mga opisyal ng Mamburao.</p>
-      <div class="t-cta">View SALN →</div>
-    </div>
-    <div class="t-card" onclick="openTrans('ordinances')">
-      <div class="t-icon">📜</div>
-      <h3>Ordinances & Resolutions</h3>
-      <p>Mga batas at resolusyon na ipinasa ng Sangguniang Bayan ng Mamburao.</p>
-      <div class="t-cta">View Ordinances →</div>
-    </div>
+    <div class="trans-grid" id="transGrid"></div>
   </div>
 </section>
 
 <!-- ══════════ BARANGAY DIRECTORY ══════════ -->
 <section id="barangay">
-  <div class="section-head-wrap">
-    <span class="section-label">Community Guide</span>
-    <h2 class="section-title">Barangay Directory</h2>
-    <p class="section-sub">Ang Mamburao ay binubuo ng <strong>15 opisyal na barangay</strong> — 8 Poblacion (sentro) at 7 Outlying. I-tap ang barangay para sa detalye.</p>
-  </div>
-  <div class="brgy-note">
-    <strong>📌 Opisyal na Listahan:</strong> Ang sumusunod ay ang 15 opisyal na barangay ng Mamburao ayon sa Philippine Statistics Authority. Ang bawat barangay ay may sariling Punong Barangay, 7 Kagawad, at SK Chairperson.
-  </div>
-  <div style="max-width:1080px;margin:20px auto 0;">
-    <div class="brgy-tabs">
-      <button class="brgy-tab active" onclick="filterBrgy('all',this)">Lahat (15)</button>
-      <button class="brgy-tab" onclick="filterBrgy('poblacion',this)">Poblacion (8)</button>
-      <button class="brgy-tab" onclick="filterBrgy('outlying',this)">Outlying (7)</button>
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-label">Community Directory</span>
+      <h2 class="sec-title">Barangay Directory</h2>
+      <p class="sec-sub">Mamburao is composed of <strong>15 official barangays</strong> — 8 Poblacion (urban center) and 7 outlying barangays. Select any barangay for details.</p>
     </div>
-  </div>
-  <div class="brgy-grid" id="brgyGrid"></div>
-  <div style="max-width:1080px;margin:0 auto;">
-    <a href="https://maps.google.com/?q=Mamburao,Occidental+Mindoro" target="_blank" class="brgy-link">
-      🗺️ View Mamburao on Google Maps
+    <div class="brgy-filter">
+      <button class="bfbtn on" onclick="filterBrgy('all',this)">All Barangays (15)</button>
+      <button class="bfbtn" onclick="filterBrgy('poblacion',this)">Poblacion (8)</button>
+      <button class="bfbtn" onclick="filterBrgy('outlying',this)">Outlying (7)</button>
+    </div>
+    <div class="brgy-grid" id="brgyGrid"></div>
+    <a href="https://maps.google.com/?q=Mamburao,Occidental+Mindoro" target="_blank" class="brgy-maplink">
+      View Mamburao on Google Maps
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
     </a>
   </div>
 </section>
 
 <!-- ══════════ ABOUT ══════════ -->
 <section id="about">
-  <div class="section-head-wrap">
-    <span class="section-label">About Mamburao</span>
-    <h2 class="section-title">Ang Lungsod ng <em>Mamburao</em></h2>
-  </div>
-  <div class="about-layout">
-    <div class="about-text">
-      <p>Ang <strong>Mamburao</strong> ay ang kabisera at pinaka-urbanisadong munisipalidad ng lalawigan ng <strong>Occidental Mindoro</strong>, na matatagpuan sa MIMAROPA Region ng Pilipinas. Ito ay isang ikalawang klase (2nd class) na munisipalidad.</p>
-      <p>Ayon sa 2024 census, ang populasyon ng Mamburao ay umabot sa <strong>44,554</strong> — ang pinakamataas sa Occidental Mindoro. Ang kabuuang lawak ng bayan ay <strong>283.51 km²</strong>, na sumasaklaw sa mga kabukiran, lambak, at dalampasigan.</p>
-      <p>Itinayo bilang kabisera ng Occidental Mindoro noong <strong>Hunyo 13, 1950</strong>, nang hatiin ang isla ng Mindoro. Ang Mamburao ay nakalagay sa dalampasigan ng <strong>Mamburao River</strong> at nahaharap sa <strong>Mamburao Bay</strong>.</p>
-      <div class="history-box">
-        <strong>📜 Maikling Kasaysayan</strong><br/>
-        Ang Mamburao ay isa sa mga pinakamatanda at pinaka-makasaysayang lugar sa Mindoro, dating stronghold ng mga Moro. Noong panahon ng Kastila, ito ang pinaka-unang lugar sa Mindoro na dinalaw at sinakop. Ngayon, ito ang pampulitika, pang-ekonomiya, at pangkulturang sentro ng Occidental Mindoro.
-      </div>
+  <div class="sec-inner">
+    <div class="sec-head">
+      <span class="sec-label">About Mamburao</span>
+      <h2 class="sec-title"><em>Ang Bayan ng</em> Mamburao</h2>
     </div>
-    <div>
-      <div class="about-stats">
-        <div class="astat">
-          <div class="astat-num">44,554</div>
-          <div class="astat-lbl">Populasyon (2024)</div>
+    <div class="about-layout">
+      <div class="about-text">
+        <p><strong>Mamburao</strong> is the capital municipality of <strong>Occidental Mindoro</strong> in MIMAROPA Region (Region IV-B). It is classified as a 2nd income class municipality, and is the most urbanized locality in the province.</p>
+        <p>The town is situated along the coast of <strong>Mamburao Bay</strong> and the banks of the Mamburao River, on the northwestern coast of Mindoro island. The municipality covers a total land area of <strong>283.51 km²</strong>, encompassing coastal plains, rolling terrain, and forested uplands.</p>
+        <div class="about-pull">
+          <p>Mamburao became the provincial capital of Occidental Mindoro on June 13, 1950, when the island of Mindoro was divided into Oriental and Occidental Mindoro.</p>
         </div>
-        <div class="astat">
-          <div class="astat-num">283.51</div>
-          <div class="astat-lbl">km² Lawak</div>
+        <p>According to the 2020 Philippine Statistics Authority census, Mamburao had a population of <strong>44,554</strong>, with a population density of approximately 157 persons per km². The municipality is composed of 15 barangays, 8 of which form the poblacion (town center).</p>
+        <div class="about-note">
+          <strong>Brief History.</strong> Mamburao has one of the longest settlement histories on Mindoro island. During the Spanish colonial period, it was among the first localities visited in Mindoro. Today it serves as the political, economic, and administrative center of Occidental Mindoro, hosting key provincial government offices, commercial establishments, and health and educational facilities.
         </div>
-        <div class="astat">
-          <div class="astat-num">15</div>
-          <div class="astat-lbl">Barangay</div>
-        </div>
-        <div class="astat">
-          <div class="astat-num">1950</div>
-          <div class="astat-lbl">Naging Kabisera</div>
-        </div>
-        <div class="astat">
-          <div class="astat-num">2nd</div>
-          <div class="astat-lbl">Income Class</div>
-        </div>
-        <div class="astat">
-          <div class="astat-num">168</div>
-          <div class="astat-lbl">Pop. Density/km²</div>
+      </div>
+      <div>
+        <div class="about-stats">
+          <div class="astat"><div class="astat-n">44,554</div><div class="astat-l">Population (2020)</div></div>
+          <div class="astat"><div class="astat-n">283.51</div><div class="astat-l">Land Area (km²)</div></div>
+          <div class="astat"><div class="astat-n">15</div><div class="astat-l">Barangays</div></div>
+          <div class="astat"><div class="astat-n">1950</div><div class="astat-l">Capital Since</div></div>
+          <div class="astat"><div class="astat-n">2nd</div><div class="astat-l">Income Class</div></div>
+          <div class="astat"><div class="astat-n">IV-B</div><div class="astat-l">MIMAROPA Region</div></div>
         </div>
       </div>
     </div>
@@ -727,102 +770,123 @@ footer{
 </section>
 
 <!-- ══════════ MODAL ══════════ -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+<div class="modal-bg" id="modal" onclick="closeModal(event)">
   <div class="modal-box">
-    <button class="m-close" onclick="closeModal()">✕</button>
+    <button class="m-close" onclick="closeModal()">&#10005;</button>
     <div id="mContent"></div>
   </div>
 </div>
 
 <!-- ══════════ SIDEBAR ══════════ -->
-<div id="sb-overlay" onclick="closeSB()"></div>
-<div id="sidebar">
-  <div class="sb-head">
-    <div>
-      <div class="sb-title">🚨 Emergency Hotlines</div>
-      <div class="sb-sub">Mamburao, Occidental Mindoro</div>
+<div id="hs-overlay" onclick="closeSidebar()"></div>
+<div id="hsidebar">
+  <div class="hs-head">
+    <div class="hs-head-text">
+      <div class="hs-head-title">Emergency Hotlines</div>
+      <div class="hs-head-sub">Municipality of Mamburao, Occidental Mindoro</div>
     </div>
-    <button class="sb-close" onclick="closeSB()">✕</button>
+    <button class="hs-close" onclick="closeSidebar()">&#10005;</button>
   </div>
-  <div class="sb-alert">⚠️ Para sa life-threatening emergency, tumawag agad sa <strong>911</strong>. Ang mga numero sa ibaba ay para sa Mamburao.</div>
-  <div class="sb-section-label">National</div>
-  <div class="hl-list">
-    <div class="hl-item" onclick="callHL('911')">
-      <div class="hl-ico" style="background:#fff0f0">🆘</div>
-      <div class="hl-info">
-        <div class="hl-name">National Emergency Hotline</div>
-        <div class="hl-num">911</div>
-        <div class="hl-note">Fire · Police · Medical</div>
+  <div class="hs-notice">For life-threatening emergencies, call <strong>911</strong> immediately. The numbers below are for Mamburao-specific services.</div>
+
+  <div class="hs-group-label">National</div>
+  <div class="hs-list">
+    <div class="hs-item" onclick="callNum('911')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b83030" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.09 4.18 2 2 0 0 1 5.07 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 17z"/></svg>
       </div>
-    </div>
-  </div>
-  <div class="sb-section-label">Mamburao — Disaster & Security</div>
-  <div class="hl-list">
-    <div class="hl-item" onclick="callHL('09977379723')">
-      <div class="hl-ico" style="background:#fff7e6">🌊</div>
-      <div class="hl-info">
-        <div class="hl-name">MDRRMO Mamburao</div>
-        <div class="hl-num">0977-337-9723</div>
-        <div class="hl-note">Disaster Risk Reduction</div>
-      </div>
-    </div>
-    <div class="hl-item" onclick="callHL('09608918466')">
-      <div class="hl-ico" style="background:#fff7e6">🌊</div>
-      <div class="hl-info">
-        <div class="hl-name">MDRRMO (Alternate)</div>
-        <div class="hl-num">0960-691-8466</div>
-        <div class="hl-note">Disaster Risk Reduction</div>
-      </div>
-    </div>
-    <div class="hl-item" onclick="callHL('09158324654')">
-      <div class="hl-ico" style="background:#fff0f0">🚒</div>
-      <div class="hl-info">
-        <div class="hl-name">Mamburao Fire Station</div>
-        <div class="hl-num">0915-832-4654</div>
-        <div class="hl-note">Bureau of Fire Protection</div>
-      </div>
-    </div>
-    <div class="hl-item" onclick="callHL('09166306292')">
-      <div class="hl-ico" style="background:#f0f4ff">🪖</div>
-      <div class="hl-info">
-        <div class="hl-name">AFP Mamburao</div>
-        <div class="hl-num">0916-630-6292</div>
-        <div class="hl-note">Armed Forces of the Philippines</div>
-      </div>
-    </div>
-    <div class="hl-item" onclick="callHL('09985985839')">
-      <div class="hl-ico" style="background:#f0f4ff">🚓</div>
-      <div class="hl-info">
-        <div class="hl-name">PNP Mamburao</div>
-        <div class="hl-num">0998-598-5839</div>
-        <div class="hl-note">Mamburao Municipal Police Station</div>
+      <div>
+        <div class="hs-name">National Emergency Hotline</div>
+        <div class="hs-num">911</div>
+        <div class="hs-note">Fire · Police · Medical</div>
       </div>
     </div>
   </div>
-  <div class="sb-section-label">Mamburao — Medical</div>
-  <div class="hl-list">
-    <div class="hl-item" onclick="callHL('09175689417')">
-      <div class="hl-ico" style="background:#f0fff4">🏥</div>
-      <div class="hl-info">
-        <div class="hl-name">Mamburao Hospital</div>
-        <div class="hl-num">0917-568-9417</div>
-        <div class="hl-note">Occ. Mindoro Provincial Hospital</div>
+
+  <div class="hs-group-label">Disaster &amp; Security</div>
+  <div class="hs-list">
+    <div class="hs-item" onclick="callNum('09977379723')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b83030" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">MDRRMO Mamburao</div>
+        <div class="hs-num">0977-337-9723</div>
+        <div class="hs-note">Disaster Risk Reduction &amp; Management</div>
       </div>
     </div>
-    <div class="hl-item" onclick="callHL('09564781967')">
-      <div class="hl-ico" style="background:#f0fff4">🩺</div>
-      <div class="hl-info">
-        <div class="hl-name">Mamburao Health Center</div>
-        <div class="hl-num">0956-478-1967</div>
-        <div class="hl-note">Municipal Health Office (MHO)</div>
+    <div class="hs-item" onclick="callNum('09608918466')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b83030" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">MDRRMO (Alternate)</div>
+        <div class="hs-num">0960-691-8466</div>
+        <div class="hs-note">Disaster Risk Reduction &amp; Management</div>
       </div>
     </div>
-    <div class="hl-item" onclick="callHL('143')">
-      <div class="hl-ico" style="background:#f8f0ff">🧠</div>
-      <div class="hl-info">
-        <div class="hl-name">Mental Health Crisis Line</div>
-        <div class="hl-num">143</div>
-        <div class="hl-note">NCMH Crisis Hotline (National)</div>
+    <div class="hs-item" onclick="callNum('09158324654')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b83030" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">Mamburao Fire Station</div>
+        <div class="hs-num">0915-832-4654</div>
+        <div class="hs-note">Bureau of Fire Protection</div>
+      </div>
+    </div>
+    <div class="hs-item" onclick="callNum('09166306292')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b83030" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">AFP Mamburao</div>
+        <div class="hs-num">0916-630-6292</div>
+        <div class="hs-note">Armed Forces of the Philippines</div>
+      </div>
+    </div>
+    <div class="hs-item" onclick="callNum('09985985839')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#b83030" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">PNP Mamburao</div>
+        <div class="hs-num">0998-598-5839</div>
+        <div class="hs-note">Mamburao Municipal Police Station</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hs-group-label">Medical</div>
+  <div class="hs-list">
+    <div class="hs-item" onclick="callNum('09175689417')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1b6e2e" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">Mamburao Hospital</div>
+        <div class="hs-num">0917-568-9417</div>
+        <div class="hs-note">Occidental Mindoro Provincial Hospital</div>
+      </div>
+    </div>
+    <div class="hs-item" onclick="callNum('09564781967')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1b6e2e" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">Mamburao Health Center</div>
+        <div class="hs-num">0956-478-1967</div>
+        <div class="hs-note">Municipal Health Office (MHO)</div>
+      </div>
+    </div>
+    <div class="hs-item" onclick="callNum('143')">
+      <div class="hs-ico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div>
+        <div class="hs-name">Mental Health Crisis Line</div>
+        <div class="hs-num">143</div>
+        <div class="hs-note">NCMH Crisis Hotline — National</div>
       </div>
     </div>
   </div>
@@ -830,406 +894,548 @@ footer{
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo">
-        <div class="footer-logo-icon" id="footerLogo"></div>
-        <span class="footer-logo-name">MambApp</span>
+  <div class="footer-main">
+    <div class="ft-brand">
+      <div class="ft-logo">
+        <svg class="ft-logo-mark" id="footerSvg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+        <span class="ft-wordmark">MambApp</span>
       </div>
-      <p class="footer-desc">Ang opisyal na digital platform ng Mamburao, Occidental Mindoro. Nagbibigay ng madaling access sa mga serbisyo ng gobyerno para sa bawat Mambureño.</p>
+      <p class="ft-desc">Official digital platform of the Municipality of Mamburao, Occidental Mindoro. Providing accessible, transparent government services for every Mambureño.</p>
     </div>
-    <div class="footer-col">
-      <h4>Quick Links</h4>
+    <div class="ft-col">
+      <h4>Services</h4>
       <ul>
-        <li><a href="#services">Mga Serbisyo</a></li>
-        <li><a href="#transparency">Transparency</a></li>
-        <li><a href="#barangay">Barangay Directory</a></li>
-        <li><a href="#about">About Mamburao</a></li>
+        <li><a href="#services" onclick="scroll2('services')">Document Requests</a></li>
+        <li><a href="#services" onclick="scroll2('services')">Bills &amp; Taxes</a></li>
+        <li><a href="#services" onclick="scroll2('services')">Report an Issue</a></li>
+        <li><a href="#services" onclick="scroll2('services')">Building Permits</a></li>
+        <li><a href="#services" onclick="scroll2('services')">Health Services</a></li>
       </ul>
     </div>
-    <div class="footer-col">
+    <div class="ft-col">
+      <h4>Information</h4>
+      <ul>
+        <li><a href="#transparency" onclick="scroll2('transparency')">Budget &amp; Finance</a></li>
+        <li><a href="#transparency" onclick="scroll2('transparency')">Projects</a></li>
+        <li><a href="#transparency" onclick="scroll2('transparency')">Ordinances</a></li>
+        <li><a href="#barangay" onclick="scroll2('barangay')">Barangay Directory</a></li>
+        <li><a href="#about" onclick="scroll2('about')">About Mamburao</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
       <h4>Contact</h4>
       <ul>
         <li><a href="https://mamburao.gov.ph" target="_blank">mamburao.gov.ph</a></li>
         <li><a href="https://mambapp.com" target="_blank">mambapp.com</a></li>
         <li><a href="tel:911">Emergency: 911</a></li>
         <li><a href="tel:+639977379723">MDRRMO: 0977-337-9723</a></li>
+        <li><a href="tel:+639985985839">PNP: 0998-598-5839</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 MambApp — Municipality of Mamburao, Occidental Mindoro, Philippines. | Last updated: May 20, 2026 | <a href="https://mamburao.gov.ph" target="_blank">mamburao.gov.ph</a></p>
+    <span class="footer-copy">&copy; 2026 MambApp — Municipality of Mamburao, Occidental Mindoro, Philippines &nbsp;|&nbsp; Last updated: May 20, 2026</span>
   </div>
 </footer>
 
 <script>
-// ── LOGO SVG — exact match: green face, tongue out, bow tie below, curved "mambapp" on top ──
-const LOGO = `<svg viewBox="0 0 140 155" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Arc for "mambapp" text — sits ABOVE the circle, letters curving over it -->
-    <path id="textArc" d="M 22,68 A 48,48 0 0 1 118,68"/>
-    <!-- Clip so tongue only shows outside mouth area -->
-  </defs>
+// ══════════ LOGO SVG ══════════
+// Professional mark: stylized "M" formed by two leaf/arc shapes,
+// with a small smiling face dot nested inside — keeps the MambApp identity
+// without being cartoonish. Monochromatic, scales at any size.
+const LOGO_LIGHT = buildLogo('white', 'rgba(255,255,255,.15)', 'rgba(255,255,255,.35)');
+const LOGO_DARK  = buildLogo('#1b4d10', 'rgba(27,77,16,.12)', 'rgba(27,77,16,.25)');
 
-  <!-- ── "mambapp" curved text above the face ── -->
-  <text font-family="'Arial Rounded MT Bold','Nunito','Varela Round',Arial,sans-serif"
-        font-weight="900" font-size="17" fill="white" letter-spacing="2.2">
-    <textPath href="#textArc" startOffset="50%" text-anchor="middle">mambapp</textPath>
-  </text>
+function buildLogo(primary, faceStroke, bowColor){
+  return `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Outer ring -->
+    <circle cx="60" cy="60" r="54" stroke="${primary}" stroke-width="3" fill="none" opacity=".25"/>
+    <!-- Stylized leaf/M shape: two arcs meeting at top -->
+    <path d="M 60 18 C 32 18 20 36 20 60 C 20 84 32 98 60 98 C 88 98 100 84 100 60 C 100 36 88 18 60 18 Z" fill="${primary}" opacity=".08"/>
+    <!-- Bold M letterform inside circle -->
+    <path d="M 28 80 L 28 38 L 60 62 L 92 38 L 92 80" stroke="${primary}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Small accent: underline dot row (represents community/people) -->
+    <circle cx="44" cy="90" r="3.5" fill="${primary}" opacity=".6"/>
+    <circle cx="60" cy="90" r="3.5" fill="${primary}"/>
+    <circle cx="76" cy="90" r="3.5" fill="${primary}" opacity=".6"/>
+  </svg>`;
+}
 
-  <!-- ── Green face circle ── -->
-  <circle cx="70" cy="82" r="46" fill="#6abf5e"/>
+document.getElementById('introSvg').outerHTML  = '<svg id="introSvg" class="intro-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">' + buildLogo('white','rgba(255,255,255,.15)','rgba(255,255,255,.3)').replace(/<svg[^>]*>/,'').replace('</svg>','') + '</svg>';
+document.getElementById('navSvg').outerHTML    = '<svg class="nav-logomark" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">' + buildLogo('white','rgba(255,255,255,.15)','rgba(255,255,255,.3)').replace(/<svg[^>]*>/,'').replace('</svg>','') + '</svg>';
+document.getElementById('footerSvg').outerHTML = '<svg class="ft-logo-mark" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">' + buildLogo('white','rgba(255,255,255,.15)','rgba(255,255,255,.3)').replace(/<svg[^>]*>/,'').replace('</svg>','') + '</svg>';
 
-  <!-- ── Eyes: large white ovals, big black pupils, white highlight ── -->
-  <!-- Left eye -->
-  <ellipse cx="52" cy="72" rx="10" ry="12" fill="white"/>
-  <circle cx="54" cy="74" r="7" fill="#1a1a1a"/>
-  <circle cx="57" cy="70" r="2.2" fill="white"/>
-  <!-- Right eye -->
-  <ellipse cx="88" cy="72" rx="10" ry="12" fill="white"/>
-  <circle cx="90" cy="74" r="7" fill="#1a1a1a"/>
-  <circle cx="93" cy="70" r="2.2" fill="white"/>
-
-  <!-- ── Smile: thin subtle curve ── -->
-  <path d="M 52,93 Q 65,103 82,96" stroke="#1a1a1a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-
-  <!-- ── Tongue: sticking out RIGHT side of mouth, peachy-pink ── -->
-  <ellipse cx="85" cy="100" rx="8" ry="6.5" fill="#f4a8a8"/>
-  <ellipse cx="85" cy="103" rx="8" ry="4" fill="#e88a8a"/>
-
-  <!-- ── Bow tie: BELOW chin, OUTSIDE the green circle, grey ── -->
-  <!-- Left wing -->
-  <path d="M 70,131 L 45,121 L 45,141 Z" fill="#999"/>
-  <!-- Right wing -->
-  <path d="M 70,131 L 95,121 L 95,141 Z" fill="#888"/>
-  <!-- Center knot -->
-  <ellipse cx="70" cy="131" rx="7" ry="8" fill="#b0b0b0"/>
-  <!-- Fold lines on bow tie for detail -->
-  <path d="M 46,123 Q 57,131 46,139" stroke="#777" stroke-width="1" fill="none" opacity="0.5"/>
-  <path d="M 94,123 Q 83,131 94,139" stroke="#777" stroke-width="1" fill="none" opacity="0.5"/>
-</svg>`;
-
-['spLogo','navLogo','heroLogo','footerLogo'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) el.innerHTML = LOGO;
-});
-
-// ── BARANGAY DATA ──
+// ══════════ BARANGAY DATA ══════════
 const BRGYS = [
-  {key:'pob1',name:'Poblacion 1 (Brgy. 1)',type:'poblacion',icon:'🏘️',desc:'Isa sa walong poblacion barangay na itinayo noong 1974 sa ilalim ng Presidential Decree No. 86. Nakalagay sa sentro ng bayan ng Mamburao.'},
-  {key:'pob2',name:'Poblacion 2 (Brgy. 2)',type:'poblacion',icon:'🏘️',desc:'Poblacion barangay na matatagpuan sa gitna ng Mamburao, malapit sa mga pangunahing establisyimento at opisina ng gobyerno.'},
-  {key:'pob3',name:'Poblacion 3 (Brgy. 3)',type:'poblacion',icon:'🏘️',desc:'Komersyal at residential na poblacion barangay sa sentro ng Mamburao na may malapit na access sa munisipalidad.'},
-  {key:'pob4',name:'Poblacion 4 (Brgy. 4)',type:'poblacion',icon:'🏘️',desc:'Mataong poblacion barangay sa puso ng Mamburao, kasama ng mga pangunahing pasilidad.'},
-  {key:'pob5',name:'Poblacion 5 (Brgy. 5)',type:'poblacion',icon:'🏘️',desc:'Sentral na barangay na may mga establisyimento, palengke, at mga pasilidad ng LGU.'},
-  {key:'pob6',name:'Poblacion 6 (Brgy. 6)',type:'poblacion',icon:'🏘️',desc:'Isa sa mga pangunahing poblacion barangay ng Mamburao na may residential at commercial na lugar.'},
-  {key:'pob7',name:'Poblacion 7 (Brgy. 7)',type:'poblacion',icon:'🏘️',desc:'Poblacion barangay malapit sa gitnang bahagi ng bayan ng Mamburao.'},
-  {key:'pob8',name:'Poblacion 8 (Brgy. 8)',type:'poblacion',icon:'🏘️',desc:'Ang walong poblacion barangay ng Mamburao, bahagi ng sentral na lugar ng bayan.'},
-  {key:'balansay',name:'Balansay',type:'outlying',icon:'🌾',desc:'Kilala sa pagsasaka at agrikultura. Isa sa mga pangunahing outlying barangay ng Mamburao.'},
-  {key:'fatima',name:'Fatima (Tii)',type:'outlying',icon:'🕊️',desc:'Kilala rin bilang "Tii." Isang outlying barangay na may malaking komunidad sa labas ng poblacion.'},
-  {key:'payompon',name:'Payompon',type:'outlying',icon:'🏪',desc:'Masiglang outlying barangay na may komersyal na aktibidad. Bahagi ng water system expansion area.'},
-  {key:'sanluis',name:'San Luis (Ligang)',type:'outlying',icon:'🌴',desc:'Kilala rin bilang "Ligang." Nakalagay malapit sa Mamburao River na may sariling komunidad at agrikultura.'},
-  {key:'talabaan',name:'Talabaan',type:'outlying',icon:'🏔️',desc:'Upland outlying barangay ng Mamburao na kilala sa kagubatan at magsasakang komunidad.'},
-  {key:'tangkalan',name:'Tangkalan',type:'outlying',icon:'🌊',desc:'Coastal outlying barangay na may access sa Mamburao Bay at aktibong fishing community.'},
-  {key:'tayamaan',name:'Tayamaan',type:'outlying',icon:'🌿',desc:'Aktibong outlying barangay sa timog bahagi ng Mamburao. May ongoing road concreting at infrastructure projects.'},
+  {id:1, key:'pob1', name:'Poblacion 1',    type:'poblacion', desc:'One of eight urban barangays forming the town center (poblacion) of Mamburao, established under Presidential Decree No. 86 in 1974.'},
+  {id:2, key:'pob2', name:'Poblacion 2',    type:'poblacion', desc:'Urban barangay in the poblacion area, home to commercial establishments and government offices.'},
+  {id:3, key:'pob3', name:'Poblacion 3',    type:'poblacion', desc:'Central poblacion barangay with residential and commercial zones in the heart of Mamburao.'},
+  {id:4, key:'pob4', name:'Poblacion 4',    type:'poblacion', desc:'Poblacion barangay situated near key municipal facilities and the main thoroughfares of Mamburao.'},
+  {id:5, key:'pob5', name:'Poblacion 5',    type:'poblacion', desc:'Urban center barangay with proximity to the public market and local government unit offices.'},
+  {id:6, key:'pob6', name:'Poblacion 6',    type:'poblacion', desc:'Residential and commercial poblacion barangay in the center of Mamburao.'},
+  {id:7, key:'pob7', name:'Poblacion 7',    type:'poblacion', desc:'One of the eight poblacion barangays comprising the urban core of the municipality.'},
+  {id:8, key:'pob8', name:'Poblacion 8',    type:'poblacion', desc:'The eighth and final poblacion barangay, part of the urban town center established in 1974.'},
+  {id:9, key:'balansay',  name:'Balansay',        type:'outlying', desc:'An outlying agricultural barangay of Mamburao, known for farming communities and rural landscape.'},
+  {id:10,key:'fatima',    name:'Fatima (Tii)',     type:'outlying', desc:'Also known as "Tii," this outlying barangay has a sizeable community west of the poblacion area.'},
+  {id:11,key:'payompon',  name:'Payompon',         type:'outlying', desc:'An active outlying barangay with commercial activity, located within the Mamburao water system expansion area.'},
+  {id:12,key:'sanluis',   name:'San Luis (Ligang)',type:'outlying', desc:'Also known as "Ligang," this outlying barangay lies near the Mamburao River and has agricultural and residential communities.'},
+  {id:13,key:'talabaan',  name:'Talabaan',         type:'outlying', desc:'An upland outlying barangay of Mamburao with forested areas and farming communities.'},
+  {id:14,key:'tangkalan', name:'Tangkalan',        type:'outlying', desc:'A coastal outlying barangay with access to Mamburao Bay and an active fishing community.'},
+  {id:15,key:'tayamaan',  name:'Tayamaan',         type:'outlying', desc:'A southern outlying barangay with ongoing infrastructure development, including road concreting projects.'},
 ];
 
 const brgyGrid = document.getElementById('brgyGrid');
 function renderBrgys(filter){
-  brgyGrid.innerHTML='';
-  BRGYS.filter(b=>filter==='all'||b.type===filter).forEach(b=>{
-    const c=document.createElement('div');
-    c.className='brgy-card';
-    c.innerHTML=`<div class="brgy-card-icon">${b.icon}</div><div class="brgy-card-name">${b.name}</div><div class="brgy-card-type">${b.type==='poblacion'?'Poblacion':'Outlying Barangay'}</div>`;
-    c.onclick=()=>openBrgy(b);
+  brgyGrid.innerHTML = '';
+  let idx = 0;
+  BRGYS.filter(b => filter === 'all' || b.type === filter).forEach(b => {
+    idx++;
+    const c = document.createElement('div');
+    c.className = 'brgy-card';
+    c.innerHTML = `<div class="bc-num">${String(b.id).padStart(2,'0')}</div>
+      <div class="bc-name">${b.name}</div>
+      <div class="bc-type">${b.type === 'poblacion' ? 'Poblacion' : 'Outlying Barangay'}</div>`;
+    c.onclick = () => openBrgy(b);
     brgyGrid.appendChild(c);
   });
 }
 renderBrgys('all');
 
-function filterBrgy(type,btn){
-  document.querySelectorAll('.brgy-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
+function filterBrgy(type, btn){
+  document.querySelectorAll('.bfbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
   renderBrgys(type);
 }
 
 function openBrgy(b){
-  document.getElementById('mContent').innerHTML=`
-    <div class="m-icon">${b.icon}</div>
+  setModal(`
+    <span class="m-label">${b.type === 'poblacion' ? 'Poblacion Barangay' : 'Outlying Barangay'} &nbsp;·&nbsp; Barangay ${b.id}</span>
     <h2 class="m-title">${b.name}</h2>
-    <span class="chip chip-open">${b.type==='poblacion'?'Poblacion Barangay':'Outlying Barangay'}</span>
-    <p class="m-desc" style="margin-top:12px">${b.desc}</p>
-    <ul class="info-list">
-      <li><div class="sn">👤</div><span><b>Punong Barangay</b> — Pinipili sa barangay election</span></li>
-      <li><div class="sn">👥</div><span><b>Mga Kagawad</b> — 7 regular + 1 SK Chairperson (ex-officio)</span></li>
-      <li><div class="sn">📍</div><span><b>Lokasyon</b> — Mamburao, Occidental Mindoro, MIMAROPA</span></li>
-      <li><div class="sn">🏛️</div><span><b>Nasasakupan</b> — Munisipalidad ng Mamburao</span></li>
+    <p class="m-desc">${b.desc}</p>
+    <ul class="m-list">
+      <li><div class="m-dot">1</div><span><strong>Local Officials:</strong> Punong Barangay, 7 Barangay Kagawad, 1 SK Chairperson (ex-officio)</span></li>
+      <li><div class="m-dot">2</div><span><strong>Province:</strong> Occidental Mindoro</span></li>
+      <li><div class="m-dot">3</div><span><strong>Region:</strong> MIMAROPA (Region IV-B)</span></li>
+      <li><div class="m-dot">4</div><span><strong>Municipality:</strong> Mamburao</span></li>
     </ul>
-    <a href="https://maps.google.com/?q=${encodeURIComponent(b.name+', Mamburao, Occidental Mindoro')}" target="_blank" class="a-link">🗺️ View on Google Maps</a>
-    <div class="succ" id="succ"></div>`;
-  document.getElementById('modal').classList.add('open');
+    <a href="https://maps.google.com/?q=${encodeURIComponent(b.name+', Mamburao, Occidental Mindoro')}" target="_blank" class="m-link">View on Google Maps</a>
+  `);
 }
 
-// ── SERVICE DATA ──
-const SVC=[
-  {icon:'📋',bg:'#eef7e8',title:'Request Documents',desc:'Humingi ng opisyal na dokumento mula sa LGU ng Mamburao.',tabs:['Mag-Apply','Requirements','I-Track'],panes:{
-    'Mag-Apply':`<div class="fr"><label>Uri ng Dokumento</label><select><option>Barangay Clearance</option><option>Certificate of Residency</option><option>Business Permit Clearance</option><option>Certificate of Indigency</option><option>Good Moral Certificate</option></select></div>
-      <div class="fr"><label>Pangalan (Last, First, MI)</label><input type="text" placeholder="Dela Cruz, Juan P."/></div>
-      <div class="fr"><label>Address sa Mamburao</label><input type="text" placeholder="Barangay at Street"/></div>
-      <div class="fr"><label>Layunin / Purpose</label><input type="text" placeholder="Para sa employment, scholarship..."/></div>
-      <button class="btn-submit" onclick="done(this,'Request naisumite! Ref: MAM-'+rnd()+' — Matatanggap ang confirmation sa loob ng 1-2 araw.')">Submit Request</button>`,
-    'Requirements':`<ul class="info-list">
-      <li><div class="sn">✓</div><span>Valid Government ID (PhilSys, Passport, Driver's License, Voter ID)</span></li>
-      <li><div class="sn">✓</div><span>Proof of Residency (kung kailangan)</span></li>
-      <li><div class="sn">✓</div><span>Accomplished Application Form</span></li>
-      <li><div class="sn">✓</div><span>Processing Fee — Php 50–150 (depende sa dokumento)</span></li>
-      <li><div class="sn">✓</div><span>1x1 o 2x2 na litrato (para sa ilang dokumento)</span></li></ul>`,
-    'I-Track':`<div class="fr"><label>Reference Number</label><input type="text" placeholder="MAM-2026-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Status: APPROVED ✅ — Handa na para kunin sa Municipal Hall!')">Track Request</button>`
-  }},
-  {icon:'💰',bg:'#fff7eb',title:'Pay Bills & Taxes',desc:'Bayaran ang iyong local na buwis, utility bills, at government fees.',tabs:['Pumili ng Bayad','Payment Status'],panes:{
-    'Pumili ng Bayad':`<div class="bill-grid">
-      <div class="bill-tile" onclick="pickBill(this,'Real Property Tax')"><div class="bi">🏠</div><span>Real Property Tax</span></div>
-      <div class="bill-tile" onclick="pickBill(this,'Business Permit')"><div class="bi">🏪</div><span>Business Permit</span></div>
-      <div class="bill-tile" onclick="pickBill(this,'Community Tax (Cedula)')"><div class="bi">📄</div><span>Cedula</span></div>
-      <div class="bill-tile" onclick="pickBill(this,'Water Bill')"><div class="bi">💧</div><span>Water Bill</span></div>
-      <div class="bill-tile" onclick="pickBill(this,'Rental Fee')"><div class="bi">🏢</div><span>Rental Fee</span></div>
-      <div class="bill-tile" onclick="pickBill(this,'Market Stall Fee')"><div class="bi">🛒</div><span>Market Stall</span></div></div>
+// ══════════ SERVICE DATA ══════════
+const SVCS = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+    title: 'Request Documents',
+    desc: 'Official certificates, clearances, and residency documents from the LGU.',
+    tabs: ['Apply','Requirements','Track'],
+    panes: {
+      'Apply': `<div class="mfr"><label>Document Type</label><select><option>Barangay Clearance</option><option>Certificate of Residency</option><option>Business Permit Clearance</option><option>Certificate of Indigency</option><option>Good Moral Certificate</option></select></div>
+        <div class="mfr"><label>Full Name (Last, First, MI)</label><input type="text" placeholder="Dela Cruz, Juan P."/></div>
+        <div class="mfr"><label>Address in Mamburao</label><input type="text" placeholder="Barangay and Street"/></div>
+        <div class="mfr"><label>Purpose</label><input type="text" placeholder="Employment, scholarship, etc."/></div>
+        <button class="m-submit" onclick="done(this,'Request submitted. Reference: MAM-'+rnd()+'. You will be notified within 1–2 working days.')">Submit Request</button>`,
+      'Requirements': `<ul class="m-list">
+        <li><div class="m-dot">1</div><span>Valid government-issued ID (PhilSys, Passport, Driver's License, Voter ID)</span></li>
+        <li><div class="m-dot">2</div><span>Proof of residency, if applicable</span></li>
+        <li><div class="m-dot">3</div><span>Accomplished application form</span></li>
+        <li><div class="m-dot">4</div><span>Processing fee: Php 50–150 depending on document type</span></li>
+        <li><div class="m-dot">5</div><span>Passport-size photo for select documents</span></li>
+      </ul>`,
+      'Track': `<div class="mfr"><label>Reference Number</label><input type="text" placeholder="MAM-2026-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Status: APPROVED — Document is ready for pickup at the Municipal Hall.')">Track Request</button>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>`,
+    title: 'Pay Bills & Taxes',
+    desc: 'Real property tax, business permits, community tax, and utility fees.',
+    tabs: ['Select Bill','Check Status'],
+    panes: {
+      'Select Bill': `<div class="bill-grid">
+        <div class="bill-tile" onclick="pickBill(this,'Real Property Tax')"><div class="bill-tile-label">Real Property Tax</div></div>
+        <div class="bill-tile" onclick="pickBill(this,'Business Permit')"><div class="bill-tile-label">Business Permit</div></div>
+        <div class="bill-tile" onclick="pickBill(this,'Community Tax (Cedula)')"><div class="bill-tile-label">Cedula</div></div>
+        <div class="bill-tile" onclick="pickBill(this,'Water Bill')"><div class="bill-tile-label">Water Bill</div></div>
+        <div class="bill-tile" onclick="pickBill(this,'Market Stall Fee')"><div class="bill-tile-label">Market Stall Fee</div></div>
+        <div class="bill-tile" onclick="pickBill(this,'Rental Fee')"><div class="bill-tile-label">Rental Fee</div></div>
+      </div>
       <div id="billForm" style="display:none">
-        <div class="fr"><label>Bill Type</label><input id="billType" type="text" readonly/></div>
-        <div class="fr"><label>Account / Reference No.</label><input type="text" placeholder="MAM-RPT-2026-001"/></div>
-        <div class="fr"><label>Amount (PHP)</label><input type="number" placeholder="0.00"/></div>
-        <div class="fr"><label>Payment Method</label><select><option>GCash</option><option>Maya</option><option>LBP Bank Transfer</option><option>Over-the-Counter</option></select></div>
-        <button class="btn-submit" onclick="done(this,'Payment processed! Official receipt ipapadala sa loob ng 24 oras.')">Bayaran Na</button></div>`,
-    'Payment Status':`<div class="fr"><label>Reference Number</label><input type="text" placeholder="PAY-2026-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Status: PAID ✅ — Real Property Tax, Php 1,200 — Enero 15, 2026')">Check Status</button>`
-  }},
-  {icon:'🔧',bg:'#fdf0f0',title:'Report an Issue',desc:'I-report ang mga problema sa komunidad — kalsada, ilaw, basura, at iba pa.',tabs:['Mag-Report','Aking Mga Report'],panes:{
-    'Mag-Report':`<div class="fr"><label>Uri ng Problema</label><select><option>Sirang Kalsada / Pothole</option><option>Sirang Streetlight</option><option>Illegal Dumping / Basura</option><option>Flooding / Drainage</option><option>Sirang Tulay</option><option>Iba pa</option></select></div>
-      <div class="fr"><label>Lokasyon (Barangay at Detalye)</label><input type="text" placeholder="ex. Brgy. Payompon, tabi ng palengke"/></div>
-      <div class="fr"><label>Paglalarawan ng Problema</label><textarea placeholder="Ilarawan ang problema nang malinaw..."></textarea></div>
-      <div class="fr"><label>Iyong Pangalan (opsyonal)</label><input type="text" placeholder="Para sa follow-up"/></div>
-      <div class="fr"><label>Contact Number (opsyonal)</label><input type="tel" placeholder="09XX-XXX-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Report submitted! Ref: RPT-2026-'+rnd()+' — Maaksyunan sa 3–5 araw.')">Submit Report</button>`,
-    'Aking Mga Report':`<div class="ann"><h4>RPT-2026-0892 — Sirang Kalsada</h4><p>Brgy. Tayamaan, tabi ng basketball court</p><div class="dt">Mayo 10, 2026 <span class="chip chip-open">In Progress</span></div></div>
-      <div class="ann"><h4>RPT-2026-0715 — Sirang Streetlight</h4><p>Brgy. Poblacion, Rizal Street</p><div class="dt">Abr 28, 2026 <span class="chip chip-open">Resolved ✓</span></div></div>
-      <div class="fr" style="margin-top:14px"><label>Track a Report</label><input type="text" placeholder="RPT-2026-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Report found! Status: Under Review 🔍')">Find Report</button>`
-  }},
-  {icon:'🏗️',bg:'#eeeef8',title:'Building Permits',desc:'Mag-apply ng building permit, renovation approval, o zoning clearance.',tabs:['Mag-Apply','Requirements','I-Track'],panes:{
-    'Mag-Apply':`<div class="fr"><label>Uri ng Permit</label><select><option>Building Permit (Bagong Gusali)</option><option>Renovation / Repair Permit</option><option>Demolition Permit</option><option>Zoning Clearance</option><option>Occupancy Permit</option></select></div>
-      <div class="fr"><label>Pangalan ng Aplikante</label><input type="text" placeholder="Buong pangalan"/></div>
-      <div class="fr"><label>Lokasyon ng Lote / Gusali</label><input type="text" placeholder="Barangay, Lot No., Street"/></div>
-      <div class="fr"><label>Estimated Cost (PHP)</label><input type="number" placeholder="0.00"/></div>
-      <div class="fr"><label>Contact Number</label><input type="tel" placeholder="09XX-XXX-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Application submitted! Ref: BLD-2026-'+rnd()+' — MPDO makikipag-ugnayan sa loob ng 5 araw.')">Submit Application</button>`,
-    'Requirements':`<ul class="info-list">
-      <li><div class="sn">✓</div><span>Duly accomplished Building Permit Form</span></li>
-      <li><div class="sn">✓</div><span>Architectural, Structural, Electrical Plans (licensed engineer)</span></li>
-      <li><div class="sn">✓</div><span>Lot Plan / TCT o CCT ng lote</span></li>
-      <li><div class="sn">✓</div><span>Zoning Clearance mula sa MPDO</span></li>
-      <li><div class="sn">✓</div><span>Tax Declaration ng lote</span></li>
-      <li><div class="sn">✓</div><span>Barangay Clearance</span></li></ul>`,
-    'I-Track':`<div class="fr"><label>Application Reference No.</label><input type="text" placeholder="BLD-2026-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Status: FOR INSPECTION 🏗️ — Scheduled: Hunyo 5, 2026')">Track Application</button>`
-  }},
-  {icon:'📢',bg:'#e8faf8',title:'Announcements',desc:'Mga pinakabagong anunsyo, balita, at abiso mula sa LGU ng Mamburao.',tabs:['Lahat','Kalusugan','Kalamidad','Kabuhayan'],panes:{
-    'Lahat':`<div class="ann"><h4>📌 Hataw at Galaw Mamburao!</h4><p>Libreng fitness program sa Municipal Plaza tuwing Sabado, 6:00–7:30 AM.</p><div class="dt">Mayo 20, 2026</div></div>
-      <div class="ann"><h4>🗳️ Barangay Assembly Schedule 2026</h4><p>Ang bawat barangay ay magdaraos ng Assembly ngayong Hunyo 2026.</p><div class="dt">Mayo 18, 2026</div></div>
-      <div class="ann"><h4>💧 Water Supply Schedule Update</h4><p>Scheduled water interruption sa Brgy. Poblacion at Payompon — Miyerkules 8AM–5PM.</p><div class="dt">Mayo 16, 2026</div></div>
-      <div class="ann"><h4>🎓 Scholarship Application Open</h4><p>Municipal Scholarship Program para SY 2026–2027. Deadline: Hunyo 15, 2026.</p><div class="dt">Mayo 10, 2026</div></div>`,
-    'Kalusugan':`<div class="ann"><h4>💉 Libreng Bakuna Para sa Bata</h4><p>Vaccination para sa mga bata 0–5 taong gulang sa MHO — Lunes–Biyernes, 8AM–12NN.</p><div class="dt">Ongoing</div></div>
-      <div class="ann"><h4>🩺 Senior Citizen Medical Mission</h4><p>Libreng medical check-up sa Mamburao Gymnasium, Mayo 30, 2026, 8AM–3PM.</p><div class="dt">Mayo 10, 2026</div></div>`,
-    'Kalamidad':`<div class="ann"><h4>🌧️ Rainy Season Preparedness</h4><p>Ihanda ang emergency kit. Alamin ang pinakamalapit na evacuation center sa inyong barangay.</p><div class="dt">Mayo 15, 2026</div></div>
-      <div class="ann"><h4>🌊 Flood Hazard Map Updated</h4><p>Available na ang updated flood hazard map ng Mamburao sa MDRRMO office.</p><div class="dt">Mayo 8, 2026</div></div>`,
-    'Kabuhayan':`<div class="ann"><h4>💼 Livelihood Training: Seafood Processing</h4><p>Libreng training. Mag-register sa MSWDO.</p><div class="dt">Mayo 26, 2026 <span class="chip chip-open">Open</span></div></div>
-      <div class="ann"><h4>🌱 Organic Farming Seminar</h4><p>Para sa mga magsasaka — MAO Conference Room, Hunyo 3, 2026.</p><div class="dt">Mayo 20, 2026 <span class="chip chip-open">Open</span></div></div>`
-  }},
-  {icon:'🗳️',bg:'#f5effe',title:'Community Feedback',desc:'Ibahagi ang iyong opinyon at makilahok sa community surveys.',tabs:['Magbigay ng Feedback','Survey','Resulta'],panes:{
-    'Magbigay ng Feedback':`<div class="fr"><label>Kategorya</label><select><option>Serbisyo ng LGU</option><option>Imprastraktura</option><option>Kalusugan</option><option>Edukasyon</option><option>Kalikasan / Kapaligiran</option><option>Iba pa</option></select></div>
-      <div class="fr"><label>Iyong Feedback o Mungkahi</label><textarea placeholder="Ibahagi ang iyong mga ideya, reklamo, o papuri..."></textarea></div>
-      <div class="fr"><label>Pangalan (maaaring anonymous)</label><input type="text" placeholder="Opsyonal"/></div>
-      <button class="btn-submit" onclick="done(this,'Salamat sa iyong feedback! Ang iyong boses ay narinig ng LGU ng Mamburao.')">Submit Feedback</button>`,
-    'Survey':`<div class="ann"><h4>📊 LGU Services Satisfaction Survey 2026</h4><p>Gaano ka kasatisfied sa mga serbisyo ng Munisipalidad ng Mamburao?</p>
-      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-        <button onclick="vote(this,'Salamat! Excellent rating recorded 🌟')" style="background:var(--green-600);color:white;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;font-family:Inter,sans-serif">Excellent</button>
-        <button onclick="vote(this,'Salamat! Good rating recorded 👍')" style="background:#2f7ec7;color:white;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;font-family:Inter,sans-serif">Good</button>
-        <button onclick="vote(this,'Thank you! We will work to improve 🔧')" style="background:#d4831a;color:white;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700;font-family:Inter,sans-serif">Needs Improvement</button>
-      </div></div>`,
-    'Resulta':`<div class="bar-wrap"><div class="bar-label"><span>Excellent</span><span>72%</span></div><div class="bar"><div class="bar-fill" style="width:72%;background:var(--green-500)"></div></div></div>
-      <div class="bar-wrap"><div class="bar-label"><span>Good</span><span>21%</span></div><div class="bar"><div class="bar-fill" style="width:21%;background:#2f7ec7"></div></div></div>
-      <div class="bar-wrap"><div class="bar-label"><span>Needs Improvement</span><span>7%</span></div><div class="bar"><div class="bar-fill" style="width:7%;background:#d4831a"></div></div></div>
-      <p style="font-size:.76rem;color:#9aab90;margin-top:8px">Based on 1,247 responses — 2026 Q1 Survey</p>`
-  }},
-  {icon:'🏥',bg:'#fde8ee',title:'Health Services',desc:'I-access ang health programs, vaccination schedules, at medical assistance.',tabs:['Mga Programa','Medical Assistance','Vaccination'],panes:{
-    'Mga Programa':`<div class="ann"><h4>🩺 Libreng Konsultasyon</h4><p>Libreng konsultasyon sa Municipal Health Office (MHO). Mon–Fri, 8AM–5PM.</p><div class="dt">Ongoing | 📞 0956-478-1967</div></div>
-      <div class="ann"><h4>👴 Senior Citizen Benefits</h4><p>Libreng gamot at priority na serbisyo. Magdala ng Senior ID.</p><div class="dt">Ongoing</div></div>
-      <div class="ann"><h4>🤱 Maternal Care Program</h4><p>Prenatal at postnatal na pag-aalaga. Makipag-ugnayan sa MHO o BHS ng inyong barangay.</p><div class="dt">Ongoing</div></div>`,
-    'Medical Assistance':`<div class="fr"><label>Uri ng Tulong</label><select><option>Financial Assistance para sa Gamot</option><option>Hospital Bills Assistance</option><option>Medical Mission Registration</option><option>Iba pa</option></select></div>
-      <div class="fr"><label>Pangalan ng Pasyente</label><input type="text" placeholder="Buong pangalan"/></div>
-      <div class="fr"><label>Barangay</label><select><option>Poblacion 1</option><option>Poblacion 2</option><option>Poblacion 3</option><option>Poblacion 4</option><option>Poblacion 5</option><option>Poblacion 6</option><option>Poblacion 7</option><option>Poblacion 8</option><option>Balansay</option><option>Fatima (Tii)</option><option>Payompon</option><option>San Luis (Ligang)</option><option>Talabaan</option><option>Tangkalan</option><option>Tayamaan</option></select></div>
-      <button class="btn-submit" onclick="done(this,'Request submitted! MSWDO makikipag-ugnayan sa iyo sa loob ng 2 araw.')">Submit Request</button>`,
-    'Vaccination':`<ul class="info-list">
-      <li><div class="sn">💉</div><span><b>Bata (0–5 yrs)</b> — EPI vaccines, Mon–Fri 8AM–12NN sa MHO</span></li>
-      <li><div class="sn">💉</div><span><b>Flu Vaccine</b> — Priority: senior citizens at PWD</span></li>
-      <li><div class="sn">💉</div><span><b>Rabies / Animal Bite</b> — Treatment center sa MHO</span></li>
-      <li><div class="sn">📞</div><span><b>MHO Hotline</b> — 0956-478-1967</span></li>
-      <li><div class="sn">🏥</div><span><b>Hospital</b> — 0917-568-9417</span></li></ul>`
-  }},
-  {icon:'🗺️',bg:'#e6f7f3',title:'Paano Pumunta',desc:'Lokasyon ng mga opisina, oras ng serbisyo, at contact directory.',tabs:['Mga Opisina','Oras ng Serbisyo','Contact Directory'],panes:{
-    'Mga Opisina':`<ul class="info-list">
-      <li><div class="sn">🏛️</div><span><b>Municipal Hall</b> — National Highway, Poblacion, Mamburao</span></li>
-      <li><div class="sn">🚓</div><span><b>PNP Mamburao</b> — Mamburao Police Station</span></li>
-      <li><div class="sn">🚒</div><span><b>Mamburao Fire Station</b> — Bureau of Fire Protection</span></li>
-      <li><div class="sn">🏥</div><span><b>Municipal Health Office</b> — Poblacion, Mamburao</span></li>
-      <li><div class="sn">🏥</div><span><b>Occ. Mindoro Prov. Hospital</b> — Mamburao</span></li>
-      <li><div class="sn">⚡</div><span><b>OMECO</b> — Occidental Mindoro Electric Coop</span></li></ul>
-      <a href="https://maps.google.com/?q=Mamburao+Municipal+Hall,Occidental+Mindoro" target="_blank" class="a-link">🗺️ Open in Google Maps</a>`,
-    'Oras ng Serbisyo':`<ul class="info-list">
-      <li><div class="sn">🕗</div><span><b>Municipal Hall</b> — Mon–Fri, 8:00 AM–5:00 PM</span></li>
-      <li><div class="sn">🕗</div><span><b>PNP Mamburao</b> — 24/7</span></li>
-      <li><div class="sn">🕗</div><span><b>Fire Station</b> — 24/7</span></li>
-      <li><div class="sn">🕗</div><span><b>MHO</b> — Mon–Fri, 8:00 AM–5:00 PM</span></li>
-      <li><div class="sn">🕗</div><span><b>Provincial Hospital</b> — 24/7 Emergency; OPD: Mon–Fri 8AM–5PM</span></li></ul>`,
-    'Contact Directory':`<ul class="info-list">
-      <li><div class="sn">📞</div><span><b>MDRRMO</b> — 0977-337-9723 / 0960-691-8466</span></li>
-      <li><div class="sn">📞</div><span><b>PNP Mamburao</b> — 0998-598-5839</span></li>
-      <li><div class="sn">📞</div><span><b>Fire Station</b> — 0915-832-4654</span></li>
-      <li><div class="sn">📞</div><span><b>AFP Mamburao</b> — 0916-630-6292</span></li>
-      <li><div class="sn">📞</div><span><b>Hospital</b> — 0917-568-9417</span></li>
-      <li><div class="sn">📞</div><span><b>Health Center</b> — 0956-478-1967</span></li>
-      <li><div class="sn">🌐</div><span><b>Website</b> — mamburao.gov.ph · mambapp.com</span></li></ul>`
-  }},
-  {icon:'📅',bg:'#f0eaf8',title:'Events & Activities',desc:'Mga paparating na kaganapan at programa sa Mamburao.',tabs:['Upcoming Events','Mag-Register'],panes:{
-    'Upcoming Events':`<div class="ann"><h4>🎉 Mamburao Foundation Day</h4><p>Pagdiriwang sa Plaza, Poblacion. Cultural shows at community activities.</p><div class="dt">Hunyo 13, 2026</div></div>
-      <div class="ann"><h4>🌱 Tree Planting — ENRO</h4><p>Sama-samang pagtatanim ng puno sa Brgy. Tayamaan. Bukas para sa lahat.</p><div class="dt">Hunyo 5, 2026</div></div>
-      <div class="ann"><h4>📣 Public Hearing — 2027 Budget</h4><p>SB Public Hearing, 9:00 AM, Session Hall.</p><div class="dt">Hunyo 10, 2026</div></div>
-      <div class="ann"><h4>🏃 Hataw at Galaw Mamburao!</h4><p>Lingguhang fitness program sa Municipal Plaza. Libre, bukas sa lahat ng edad.</p><div class="dt">Tuwing Sabado, 6:00 AM</div></div>`,
-    'Mag-Register':`<div class="fr"><label>Piliin ang Event</label><select><option>Mamburao Foundation Day</option><option>Tree Planting Activity</option><option>Public Hearing</option><option>Hataw at Galaw Mamburao</option></select></div>
-      <div class="fr"><label>Iyong Pangalan</label><input type="text" placeholder="Buong pangalan"/></div>
-      <div class="fr"><label>Bilang ng Dadalo</label><input type="number" min="1" value="1"/></div>
-      <div class="fr"><label>Contact Number</label><input type="tel" placeholder="09XX-XXX-XXXX"/></div>
-      <button class="btn-submit" onclick="done(this,'Registered! Matatanggap ang reminder bago ang event.')">Register Now</button>`
-  }},
-  {icon:'💼',bg:'#e9f5ec',title:'Livelihood & Jobs',desc:'Livelihood trainings, job fairs, at business permit applications.',tabs:['Mga Programa','Job Fair','Business Permit'],panes:{
-    'Mga Programa':`<div class="ann"><h4>🐟 Seafood and Fish Processing</h4><p>Libreng 5-day training na may starter kit. Open sa lahat ng Mambureño.</p><div class="dt">Hunyo 9–13, 2026 <span class="chip chip-open">Open</span></div></div>
-      <div class="ann"><h4>🪡 Dressmaking and Tailoring</h4><p>3-week livelihood training. Bukas sa lahat ng kasarian at edad.</p><div class="dt">Hunyo 15, 2026 <span class="chip chip-open">Open</span></div></div>
-      <div class="ann"><h4>🌾 Organic Vegetable Farming</h4><p>Seminar at hands-on training. Libre ang mga binhi at kagamitan.</p><div class="dt">Hunyo 3, 2026 <span class="chip chip-open">Open</span></div></div>`,
-    'Job Fair':`<div class="ann"><h4>💼 Mamburao Job Fair 2026</h4><p>50+ companies, 500+ job openings. Libreng registration. Dalhin ang resume at valid ID.</p><div class="dt">Hunyo 25, 2026 — 8AM–5PM, Mamburao Gymnasium</div></div>
-      <div class="fr" style="margin-top:14px"><label>Iyong Pangalan</label><input type="text" placeholder="Para sa pre-registration"/></div>
-      <div class="fr"><label>Trabahong Hinahanap</label><input type="text" placeholder="ex. Cashier, Driver, Teacher"/></div>
-      <button class="btn-submit" onclick="done(this,'Pre-registered sa Job Fair 2026! Kita tayo roon!')">Pre-Register</button>`,
-    'Business Permit':`<div class="fr"><label>Uri ng Negosyo</label><select><option>Sari-Sari Store</option><option>Restaurant / Carinderia</option><option>Retail Store</option><option>Services (Salon, Repair...)</option><option>Manufacturing</option><option>Iba pa</option></select></div>
-      <div class="fr"><label>Pangalan ng Negosyo</label><input type="text" placeholder="ex. Juan's Store"/></div>
-      <div class="fr"><label>Lokasyon</label><input type="text" placeholder="Barangay at Street, Mamburao"/></div>
-      <button class="btn-submit" onclick="done(this,'Business Permit application submitted! Ref: BP-2026-'+rnd())">Submit Application</button>`
-  }},
-  {icon:'📰',bg:'#f5f5f5',title:'Local News',desc:'Pinakabagong balita at community stories sa Mamburao.',tabs:['Pinakabago','Pamahalaan','Komunidad'],panes:{
-    'Pinakabago':`<div class="ann"><h4>🌿 Mamburao Wins Cleanest Municipality Award</h4><p>Muling kinilala ang Mamburao bilang isa sa pinaka-malinis na munisipalidad sa MIMAROPA.</p><div class="dt">Mayo 17, 2026</div></div>
-      <div class="ann"><h4>🏫 Bagong Silid-Aralan sa Mamburao NHS</h4><p>10 bagong classroom ang binuksan na pinopondohan ng SEF.</p><div class="dt">Mayo 12, 2026</div></div>
-      <div class="ann"><h4>🛣️ Road Concreting — Brgy. Tayamaan</h4><p>Nagsimula na ang road concreting project. Inaasahang matapos sa 3 buwan.</p><div class="dt">Mayo 8, 2026</div></div>`,
-    'Pamahalaan':`<div class="ann"><h4>📋 2026 Annual Investment Plan Approved</h4><p>Naaprubahan ang 2026 AIP na nagtatampok ng pinalaking badyet para sa imprastraktura.</p><div class="dt">Abr 30, 2026</div></div>
-      <div class="ann"><h4>🤝 MOA Signing with DOST</h4><p>Pinirmahan ang MOA sa pagitan ng LGU Mamburao at DOST-MIMAROPA.</p><div class="dt">Abr 25, 2026</div></div>`,
-    'Komunidad':`<div class="ann"><h4>🎣 Fishing Community Gets New Boats</h4><p>Natanggap ng mga mangingisda sa Brgy. Tangkalan ang bagong fishing boats.</p><div class="dt">Mayo 15, 2026</div></div>
-      <div class="ann"><h4>🌺 Kabataang Mambureño Cleanup Drive</h4><p>300+ kabataan ang lumahok sa grand cleanup drive sa Mamburao River.</p><div class="dt">Mayo 11, 2026</div></div>`
-  }}
+        <div class="mfr"><label>Bill Type</label><input id="billType" type="text" readonly/></div>
+        <div class="mfr"><label>Account / Reference No.</label><input type="text" placeholder="MAM-RPT-2026-001"/></div>
+        <div class="mfr"><label>Amount (PHP)</label><input type="number" placeholder="0.00"/></div>
+        <div class="mfr"><label>Payment Method</label><select><option>GCash</option><option>Maya</option><option>LBP Bank Transfer</option><option>Over-the-Counter</option></select></div>
+        <button class="m-submit" onclick="done(this,'Payment processed. Official receipt will be issued within 24 hours.')">Proceed to Payment</button>
+      </div>`,
+      'Check Status': `<div class="mfr"><label>Payment Reference Number</label><input type="text" placeholder="PAY-2026-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Status: PAID — Real Property Tax, Php 1,200 — January 15, 2026.')">Check Status</button>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+    title: 'Report an Issue',
+    desc: 'Report road damage, lighting problems, drainage issues, or illegal dumping.',
+    tabs: ['File Report','My Reports'],
+    panes: {
+      'File Report': `<div class="mfr"><label>Issue Type</label><select><option>Road Damage / Pothole</option><option>Broken Streetlight</option><option>Illegal Dumping / Waste</option><option>Flooding / Drainage</option><option>Damaged Bridge</option><option>Other</option></select></div>
+        <div class="mfr"><label>Location (Barangay and Street)</label><input type="text" placeholder="e.g. Brgy. Payompon, near the market"/></div>
+        <div class="mfr"><label>Description</label><textarea placeholder="Describe the issue in detail..."></textarea></div>
+        <div class="mfr"><label>Your Name (optional)</label><input type="text" placeholder="For follow-up purposes"/></div>
+        <div class="mfr"><label>Contact Number (optional)</label><input type="tel" placeholder="09XX-XXX-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Report submitted. Reference: RPT-2026-'+rnd()+'. Expected action within 3–5 working days.')">Submit Report</button>`,
+      'My Reports': `<div class="m-ann"><h4>RPT-2026-0892 — Road Damage</h4><p>Brgy. Tayamaan, near the basketball court</p><div class="m-ann-date">May 10, 2026 <span class="m-tag m-tag-open">In Progress</span></div></div>
+        <div class="m-ann"><h4>RPT-2026-0715 — Broken Streetlight</h4><p>Poblacion, Rizal Street</p><div class="m-ann-date">Apr 28, 2026 <span class="m-tag m-tag-open">Resolved</span></div></div>
+        <div class="mfr" style="margin-top:14px"><label>Track a Report</label><input type="text" placeholder="RPT-2026-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Report found. Status: Under Review.')">Search</button>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>`,
+    title: 'Building Permits',
+    desc: 'New construction, renovation, demolition, zoning, and occupancy permits.',
+    tabs: ['Apply','Requirements','Track'],
+    panes: {
+      'Apply': `<div class="mfr"><label>Permit Type</label><select><option>Building Permit (New Construction)</option><option>Renovation / Repair Permit</option><option>Demolition Permit</option><option>Zoning Clearance</option><option>Certificate of Occupancy</option></select></div>
+        <div class="mfr"><label>Applicant Full Name</label><input type="text" placeholder="Full legal name"/></div>
+        <div class="mfr"><label>Location of Lot / Structure</label><input type="text" placeholder="Barangay, Lot No., Street"/></div>
+        <div class="mfr"><label>Estimated Project Cost (PHP)</label><input type="number" placeholder="0.00"/></div>
+        <div class="mfr"><label>Contact Number</label><input type="tel" placeholder="09XX-XXX-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Application submitted. Reference: BLD-2026-'+rnd()+'. MPDO will contact you within 5 working days.')">Submit Application</button>`,
+      'Requirements': `<ul class="m-list">
+        <li><div class="m-dot">1</div><span>Accomplished building permit application form</span></li>
+        <li><div class="m-dot">2</div><span>Architectural, structural, and electrical plans signed by a licensed engineer</span></li>
+        <li><div class="m-dot">3</div><span>Copy of TCT or CCT, and lot plan</span></li>
+        <li><div class="m-dot">4</div><span>Zoning clearance from the Municipal Planning and Development Office (MPDO)</span></li>
+        <li><div class="m-dot">5</div><span>Tax declaration of the lot</span></li>
+        <li><div class="m-dot">6</div><span>Barangay clearance</span></li>
+      </ul>`,
+      'Track': `<div class="mfr"><label>Application Reference Number</label><input type="text" placeholder="BLD-2026-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Status: FOR INSPECTION — Scheduled: June 5, 2026.')">Track Application</button>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>`,
+    title: 'Announcements',
+    desc: 'Official notices, advisories, and public announcements from the LGU.',
+    tabs: ['All','Health','Disaster','Livelihood'],
+    panes: {
+      'All': `
+        <div class="m-ann"><h4>Fitness Program — Municipal Plaza</h4><p>Free weekly fitness program every Saturday, 6:00–7:30 AM at the Municipal Plaza.</p><div class="m-ann-date">May 20, 2026</div></div>
+        <div class="m-ann"><h4>Barangay Assembly Schedule 2026</h4><p>All 15 barangays will hold their respective assemblies in June 2026. Attendance is encouraged.</p><div class="m-ann-date">May 18, 2026</div></div>
+        <div class="m-ann"><h4>Water Supply Interruption Notice</h4><p>Scheduled water interruption in Barangay Poblacion and Payompon — Wednesday, 8:00 AM–5:00 PM.</p><div class="m-ann-date">May 16, 2026</div></div>
+        <div class="m-ann"><h4>Municipal Scholarship Program — Open</h4><p>Applications for SY 2026–2027 scholarship are now open. Deadline: June 15, 2026.</p><div class="m-ann-date">May 10, 2026</div></div>`,
+      'Health': `
+        <div class="m-ann"><h4>Free Vaccination — Children 0–5 Years</h4><p>EPI vaccines available at the Municipal Health Office, Monday to Friday, 8:00 AM–12:00 NN.</p><div class="m-ann-date">Ongoing</div></div>
+        <div class="m-ann"><h4>Senior Citizens Medical Mission</h4><p>Free medical check-up at Mamburao Gymnasium on May 30, 2026, 8:00 AM–3:00 PM.</p><div class="m-ann-date">May 10, 2026</div></div>`,
+      'Disaster': `
+        <div class="m-ann"><h4>Rainy Season Preparedness Advisory</h4><p>Residents are advised to prepare emergency kits and know the nearest evacuation center in their barangay. Contact MDRRMO at 0977-337-9723.</p><div class="m-ann-date">May 15, 2026</div></div>
+        <div class="m-ann"><h4>Updated Flood Hazard Map Available</h4><p>The updated flood hazard map of Mamburao is now available at the MDRRMO office.</p><div class="m-ann-date">May 8, 2026</div></div>`,
+      'Livelihood': `
+        <div class="m-ann"><h4>Seafood Processing Training</h4><p>Free 5-day livelihood training with starter kit. Register at the MSWDO office.</p><div class="m-ann-date">June 9–13, 2026 <span class="m-tag m-tag-open">Open</span></div></div>
+        <div class="m-ann"><h4>Organic Vegetable Farming Seminar</h4><p>Seminar and hands-on training for farmers. Free seeds and materials provided. MAO Conference Room.</p><div class="m-ann-date">June 3, 2026 <span class="m-tag m-tag-open">Open</span></div></div>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+    title: 'Community Feedback',
+    desc: 'Share suggestions, file concerns, and participate in community surveys.',
+    tabs: ['Submit Feedback','Survey','Results'],
+    panes: {
+      'Submit Feedback': `<div class="mfr"><label>Category</label><select><option>LGU Services</option><option>Infrastructure</option><option>Health Services</option><option>Education</option><option>Environment</option><option>Other</option></select></div>
+        <div class="mfr"><label>Your Feedback or Suggestion</label><textarea placeholder="Share your thoughts, concerns, or recommendations..."></textarea></div>
+        <div class="mfr"><label>Name (may remain anonymous)</label><input type="text" placeholder="Optional"/></div>
+        <button class="m-submit" onclick="done(this,'Thank you. Your feedback has been submitted to the LGU of Mamburao.')">Submit Feedback</button>`,
+      'Survey': `<div class="m-ann">
+        <h4>LGU Services Satisfaction Survey — 2026 Q1</h4>
+        <p>How satisfied are you with the services provided by the Municipality of Mamburao?</p>
+        <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+          <button onclick="vote(this,'Thank you. Your response has been recorded.')" style="background:var(--forest);color:white;border:none;padding:9px 16px;border-radius:3px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:.3px">Very Satisfied</button>
+          <button onclick="vote(this,'Thank you. Your response has been recorded.')" style="background:var(--sage);color:white;border:none;padding:9px 16px;border-radius:3px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:.3px">Satisfied</button>
+          <button onclick="vote(this,'Thank you. Your response has been recorded. We will work to improve.')" style="background:#c07830;color:white;border:none;padding:9px 16px;border-radius:3px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:'DM Sans',sans-serif;letter-spacing:.3px">Needs Improvement</button>
+        </div>
+      </div>`,
+      'Results': `
+        <div class="bar-row"><div class="bar-top"><span>Very Satisfied</span><span>58%</span></div><div class="bar-bg"><div class="bar-fill" style="width:58%;background:var(--forest)"></div></div></div>
+        <div class="bar-row"><div class="bar-top"><span>Satisfied</span><span>30%</span></div><div class="bar-bg"><div class="bar-fill" style="width:30%;background:var(--sage)"></div></div></div>
+        <div class="bar-row"><div class="bar-top"><span>Needs Improvement</span><span>12%</span></div><div class="bar-bg"><div class="bar-fill" style="width:12%;background:#c07830"></div></div></div>
+        <p style="font-size:.74rem;color:#96a88a;margin-top:8px">Based on 1,247 responses · 2026 Q1 survey</p>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+    title: 'Health Services',
+    desc: 'Health programs, vaccination schedules, medical assistance, and MHO services.',
+    tabs: ['Programs','Medical Assistance','Vaccination'],
+    panes: {
+      'Programs': `
+        <div class="m-ann"><h4>Free Consultations — Municipal Health Office</h4><p>Open to all residents. Monday to Friday, 8:00 AM–5:00 PM. Contact: 0956-478-1967.</p><div class="m-ann-date">Ongoing</div></div>
+        <div class="m-ann"><h4>Senior Citizens Health Benefits</h4><p>Free medicines and priority health services for senior citizens. Bring your Senior Citizen ID.</p><div class="m-ann-date">Ongoing</div></div>
+        <div class="m-ann"><h4>Maternal Care Program</h4><p>Prenatal and postnatal care available at the MHO and Barangay Health Stations.</p><div class="m-ann-date">Ongoing</div></div>`,
+      'Medical Assistance': `<div class="mfr"><label>Type of Assistance Needed</label><select><option>Financial Assistance for Medicine</option><option>Hospital Bills Assistance</option><option>Medical Mission Registration</option><option>Other</option></select></div>
+        <div class="mfr"><label>Patient Full Name</label><input type="text" placeholder="Full legal name"/></div>
+        <div class="mfr"><label>Barangay</label><select><option>Poblacion 1</option><option>Poblacion 2</option><option>Poblacion 3</option><option>Poblacion 4</option><option>Poblacion 5</option><option>Poblacion 6</option><option>Poblacion 7</option><option>Poblacion 8</option><option>Balansay</option><option>Fatima (Tii)</option><option>Payompon</option><option>San Luis (Ligang)</option><option>Talabaan</option><option>Tangkalan</option><option>Tayamaan</option></select></div>
+        <button class="m-submit" onclick="done(this,'Request submitted. The MSWDO will contact you within 2 working days.')">Submit Request</button>`,
+      'Vaccination': `<ul class="m-list">
+        <li><div class="m-dot">1</div><span><strong>Children 0–5 years:</strong> EPI vaccines available Monday to Friday, 8:00 AM–12:00 NN at the MHO.</span></li>
+        <li><div class="m-dot">2</div><span><strong>Influenza vaccine:</strong> Available at the MHO; priority given to senior citizens and persons with disabilities.</span></li>
+        <li><div class="m-dot">3</div><span><strong>Rabies / Animal bite:</strong> Treatment available at the Animal Bite Center, MHO.</span></li>
+        <li><div class="m-dot">4</div><span><strong>Health Center hotline:</strong> 0956-478-1967</span></li>
+        <li><div class="m-dot">5</div><span><strong>Hospital hotline:</strong> 0917-568-9417</span></li>
+      </ul>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    title: 'Office Directory',
+    desc: 'Locations, office hours, and contact numbers for all municipal offices.',
+    tabs: ['Offices','Hours','Contacts'],
+    panes: {
+      'Offices': `<ul class="m-list">
+        <li><div class="m-dot">1</div><span><strong>Municipal Hall</strong> — National Highway, Poblacion, Mamburao</span></li>
+        <li><div class="m-dot">2</div><span><strong>PNP Mamburao</strong> — Mamburao Municipal Police Station</span></li>
+        <li><div class="m-dot">3</div><span><strong>Bureau of Fire Protection</strong> — Mamburao Fire Station</span></li>
+        <li><div class="m-dot">4</div><span><strong>Municipal Health Office (MHO)</strong> — Poblacion, Mamburao</span></li>
+        <li><div class="m-dot">5</div><span><strong>Occ. Mindoro Provincial Hospital</strong> — Mamburao</span></li>
+        <li><div class="m-dot">6</div><span><strong>OMECO</strong> — Occidental Mindoro Electric Cooperative</span></li>
+        <li><div class="m-dot">7</div><span><strong>DepEd District Office</strong> — Mamburao District, Poblacion</span></li>
+      </ul>
+      <a href="https://maps.google.com/?q=Mamburao+Municipal+Hall,Occidental+Mindoro" target="_blank" class="m-link">View on Google Maps</a>`,
+      'Hours': `<ul class="m-list">
+        <li><div class="m-dot">1</div><span><strong>Municipal Hall</strong> — Monday to Friday, 8:00 AM–5:00 PM</span></li>
+        <li><div class="m-dot">2</div><span><strong>PNP Mamburao</strong> — Open 24 hours, 7 days a week</span></li>
+        <li><div class="m-dot">3</div><span><strong>Mamburao Fire Station</strong> — Open 24 hours, 7 days a week</span></li>
+        <li><div class="m-dot">4</div><span><strong>Municipal Health Office</strong> — Monday to Friday, 8:00 AM–5:00 PM</span></li>
+        <li><div class="m-dot">5</div><span><strong>Occ. Mindoro Provincial Hospital</strong> — 24/7 for emergencies; OPD: Monday–Friday, 8:00 AM–5:00 PM</span></li>
+        <li><div class="m-dot">6</div><span><strong>OMECO</strong> — Monday to Friday, 8:00 AM–5:00 PM</span></li>
+      </ul>`,
+      'Contacts': `<ul class="m-list">
+        <li><div class="m-dot">1</div><span><strong>MDRRMO:</strong> 0977-337-9723 / 0960-691-8466</span></li>
+        <li><div class="m-dot">2</div><span><strong>PNP Mamburao:</strong> 0998-598-5839</span></li>
+        <li><div class="m-dot">3</div><span><strong>Mamburao Fire Station:</strong> 0915-832-4654</span></li>
+        <li><div class="m-dot">4</div><span><strong>AFP Mamburao:</strong> 0916-630-6292</span></li>
+        <li><div class="m-dot">5</div><span><strong>Mamburao Hospital:</strong> 0917-568-9417</span></li>
+        <li><div class="m-dot">6</div><span><strong>Municipal Health Office:</strong> 0956-478-1967</span></li>
+        <li><div class="m-dot">7</div><span><strong>Website:</strong> mamburao.gov.ph / mambapp.com</span></li>
+      </ul>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/></svg>`,
+    title: 'Events & Programs',
+    desc: 'Upcoming municipal events, activities, and registration for programs.',
+    tabs: ['Upcoming','Register'],
+    panes: {
+      'Upcoming': `
+        <div class="m-ann"><h4>Mamburao Foundation Day</h4><p>Celebration at the Municipal Plaza, Poblacion. Cultural shows and community activities.</p><div class="m-ann-date">June 13, 2026</div></div>
+        <div class="m-ann"><h4>Tree Planting Activity — ENRO</h4><p>Community tree planting in Barangay Tayamaan. Open to all residents.</p><div class="m-ann-date">June 5, 2026</div></div>
+        <div class="m-ann"><h4>Public Hearing — 2027 Annual Budget</h4><p>Sangguniang Bayan public hearing at 9:00 AM, Session Hall. Open to all constituents.</p><div class="m-ann-date">June 10, 2026</div></div>
+        <div class="m-ann"><h4>Mamburao Job Fair 2026</h4><p>50+ companies, 500+ job openings. Free registration. Bring resume and valid ID.</p><div class="m-ann-date">June 25, 2026 — Mamburao Gymnasium <span class="m-tag m-tag-open">Open</span></div></div>`,
+      'Register': `<div class="mfr"><label>Event</label><select><option>Mamburao Foundation Day</option><option>Tree Planting Activity</option><option>Public Hearing</option><option>Job Fair 2026</option></select></div>
+        <div class="mfr"><label>Full Name</label><input type="text" placeholder="Full legal name"/></div>
+        <div class="mfr"><label>Number of Attendees</label><input type="number" min="1" value="1"/></div>
+        <div class="mfr"><label>Contact Number</label><input type="tel" placeholder="09XX-XXX-XXXX"/></div>
+        <button class="m-submit" onclick="done(this,'Registration confirmed. A reminder will be sent before the event.')">Confirm Registration</button>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21a9 9 0 0 1 13 0"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="19" x2="12" y2="19"/></svg>`,
+    title: 'Livelihood & Jobs',
+    desc: 'Livelihood training programs, job fairs, and business permit applications.',
+    tabs: ['Programs','Business Permit'],
+    panes: {
+      'Programs': `
+        <div class="m-ann"><h4>Seafood and Fish Processing</h4><p>Free 5-day training with starter kit, open to all residents. Register at the MSWDO.</p><div class="m-ann-date">June 9–13, 2026 <span class="m-tag m-tag-open">Open</span></div></div>
+        <div class="m-ann"><h4>Dressmaking and Tailoring</h4><p>Three-week free livelihood training. Open to all genders and ages.</p><div class="m-ann-date">June 15, 2026 <span class="m-tag m-tag-open">Open</span></div></div>
+        <div class="m-ann"><h4>Organic Vegetable Farming</h4><p>Seminar and hands-on training. Free seeds and farm tools provided. MAO Conference Room.</p><div class="m-ann-date">June 3, 2026 <span class="m-tag m-tag-open">Open</span></div></div>`,
+      'Business Permit': `<div class="mfr"><label>Business Type</label><select><option>Sari-Sari Store</option><option>Restaurant / Carinderia</option><option>Retail Store</option><option>Services (Salon, Repair Shop, etc.)</option><option>Manufacturing</option><option>Other</option></select></div>
+        <div class="mfr"><label>Business Name</label><input type="text" placeholder="e.g. Juan's Store"/></div>
+        <div class="mfr"><label>Business Location</label><input type="text" placeholder="Barangay and Street, Mamburao"/></div>
+        <div class="mfr"><label>Owner Full Name</label><input type="text" placeholder="Full legal name"/></div>
+        <button class="m-submit" onclick="done(this,'Business permit application submitted. Reference: BP-2026-'+rnd()+'.')">Submit Application</button>`
+    }
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v2"/><path d="M4 8h8"/><path d="M4 12h8"/><path d="M4 16h4"/><path d="M2 22V8l4-4"/></svg>`,
+    title: 'Local News',
+    desc: 'Official news releases and updates from the Municipality of Mamburao.',
+    tabs: ['Latest','Government','Community'],
+    panes: {
+      'Latest': `
+        <div class="m-ann"><h4>Mamburao Recognized as Cleanest Municipality in MIMAROPA</h4><p>The municipality was once again recognized for its solid waste management program at the regional level.</p><div class="m-ann-date">May 17, 2026</div></div>
+        <div class="m-ann"><h4>10 New Classrooms Opened at Mamburao NHS</h4><p>New classrooms funded through the Special Education Fund (SEF) are now open.</p><div class="m-ann-date">May 12, 2026</div></div>
+        <div class="m-ann"><h4>Road Concreting Project Begins in Brgy. Tayamaan</h4><p>Construction has commenced and is expected to be completed within three months.</p><div class="m-ann-date">May 8, 2026</div></div>`,
+      'Government': `
+        <div class="m-ann"><h4>2026 Annual Investment Plan Approved</h4><p>The Sangguniang Bayan has approved the 2026 Annual Investment Plan, with increased allocation for infrastructure.</p><div class="m-ann-date">April 30, 2026</div></div>
+        <div class="m-ann"><h4>MOA Signing with DOST-MIMAROPA</h4><p>A Memorandum of Agreement was signed between LGU Mamburao and the Department of Science and Technology.</p><div class="m-ann-date">April 25, 2026</div></div>`,
+      'Community': `
+        <div class="m-ann"><h4>Fishing Community in Brgy. Tangkalan Receives New Vessels</h4><p>Fishermen in Barangay Tangkalan received new fishing boats as part of the livelihood assistance program.</p><div class="m-ann-date">May 15, 2026</div></div>
+        <div class="m-ann"><h4>Youth-Led Cleanup Drive Along Mamburao River</h4><p>Over 300 young residents participated in a grand cleanup drive along the Mamburao River.</p><div class="m-ann-date">May 11, 2026</div></div>`
+    }
+  }
 ];
 
-// ── TRANSPARENCY ──
-const TRANS={
-  budget:{title:'Budget & Finance',icon:'📊',html:`
-    <p class="m-desc">Annual financial reports ng Munisipalidad ng Mamburao para sa transparency at accountability.</p>
-    <div class="ann"><h4>📄 Annual Budget 2026 — Php 320,000,000</h4><p>General Fund: Php 200M | SEF: Php 55M | Trust Fund: Php 65M</p><div class="dt">Approved: Enero 2026</div></div>
-    <div class="ann"><h4>📄 2025 Annual Financial Report</h4><p>Income: Php 295M | Expenditures: Php 287M | Surplus: Php 8M</p><div class="dt">Published: Marso 2026</div></div>
-    <div class="ann"><h4>📄 Q1 2026 Financial Statement</h4><p>Income: Php 72M | Expenditures: Php 65M | Balance: Php 7M</p><div class="dt">Published: Abr 30, 2026</div></div>
-    <a href="https://mamburao.gov.ph" target="_blank" class="a-link">🌐 View on mamburao.gov.ph</a>`},
-  projects:{title:'Infrastructure Projects',icon:'🏗️',html:`
-    <p class="m-desc">Mga kasalukuyang isinasagawa o kamakailan lamang na natapos na proyekto.</p>
-    <div class="ann"><h4>🛣️ Road Concreting — Brgy. Tayamaan</h4><p>Budget: Php 4.5M | Status: Ongoing (70%)</p></div>
-    <div class="ann"><h4>🌊 Flood Control — Mamburao River</h4><p>Budget: Php 8.2M | DPWH-MIMAROPA | Ongoing (65%)</p></div>
-    <div class="ann"><h4>🏫 10 Classrooms — Mamburao NHS</h4><p>Budget: Php 6.8M | SEF funded | Completed ✅ 2025</p></div>
-    <div class="ann"><h4>💧 Water System Expansion</h4><p>Budget: Php 12M | Brgy. Payompon & Balansay | Ongoing (55%)</p></div>`},
-  procurement:{title:'Procurement & BAC',icon:'📝',html:`
-    <p class="m-desc">Lahat ng procurement activities ng LGU para sa full transparency.</p>
-    <div class="ann"><h4>📢 Invitation to Bid — Road Concreting Brgy. Tayamaan Phase 2</h4><p>ABC: Php 3.8M | Pre-bid: Hunyo 5, 2026</p><div class="dt"><span class="chip chip-open">Open for Bidding</span></div></div>
-    <div class="ann"><h4>📢 Purchase of Medical Supplies — MHO</h4><p>ABC: Php 950,000 | Shopping Mode</p><div class="dt"><span class="chip chip-open">Award Pending</span></div></div>
-    <div class="ann"><h4>✅ Awarded — IT Equipment for Municipal Hall</h4><p>ABC: Php 1.4M | Awarded Price: Php 1,320,000</p><div class="dt">Awarded: Abr 15, 2026</div></div>
-    <a href="https://mamburao.gov.ph" target="_blank" class="a-link">🌐 View Full BAC Records</a>`},
-  officials:{title:'Local Officials',icon:'👥',html:`
-    <p class="m-desc">Ang inyong elected at appointed officials ng Mamburao.</p>
-    <ul class="info-list">
-      <li><div class="sn">👨</div><span><b>Municipal Mayor</b> — Office of the Mayor, Mamburao</span></li>
-      <li><div class="sn">👩</div><span><b>Municipal Vice Mayor</b> — Office of the Vice Mayor</span></li>
-      <li><div class="sn">🏛️</div><span><b>Sangguniang Bayan</b> — 10 Regular Members + Liga + SK</span></li>
-      <li><div class="sn">💼</div><span><b>Municipal Administrator</b> — Administrative Office</span></li>
-      <li><div class="sn">💰</div><span><b>Municipal Treasurer</b> — Treasury Office</span></li>
-      <li><div class="sn">🏗️</div><span><b>Municipal Engineer</b> — Engineering Office</span></li>
-      <li><div class="sn">🌿</div><span><b>MENRO</b> — Environment & Natural Resources Officer</span></li>
-    </ul>
-    <a href="https://mamburao.gov.ph" target="_blank" class="a-link">🌐 View Full Directory</a>`},
-  soa:{title:'Statement of Assets (SALN)',icon:'📄',html:`
-    <p class="m-desc">Alinsunod sa RA 6713, ang mga SALN ng public officials ng Mamburao ay available para sa public inspection.</p>
-    <div class="ann"><h4>📋 SALN 2025 — Elected Officials</h4><p>Naihain na ang SALN ng lahat ng elected officials.</p><div class="dt">Filed: Abril 30, 2026 ✅</div></div>
-    <div class="ann"><h4>📋 SALN 2025 — Department Heads</h4><p>Naihain na ang SALN ng lahat ng department heads.</p><div class="dt">Filed: Abril 30, 2026 ✅</div></div>
-    <div class="ann" style="border-left-color:#d4831a"><h4>ℹ️ Paano Makakuha ng Kopya</h4><p>Pumunta sa Office of the Municipal Administrator o mag-submit ng written request.</p></div>`},
-  ordinances:{title:'Ordinances & Resolutions',icon:'📜',html:`
-    <p class="m-desc">Mga batas at resolusyon na ipinasa ng Sangguniang Bayan ng Mamburao.</p>
-    <div class="ann"><h4>📜 Ord. No. 2026-01 — Solid Waste Management</h4><p>Strengthening Solid Waste Management sa Mamburao</p><div class="dt">Enacted: Enero 20, 2026</div></div>
-    <div class="ann"><h4>📜 Ord. No. 2026-02 — 2026 Annual Investment Program</h4><div class="dt">Enacted: Pebrero 5, 2026</div></div>
-    <div class="ann"><h4>📜 SB Res. No. 2026-10 — Calamity Fund Release</h4><div class="dt">Enacted: Marso 12, 2026</div></div>
-    <div class="ann"><h4>📜 SB Res. No. 2026-15 — Supplemental Budget No. 1</h4><div class="dt">Enacted: Abr 22, 2026</div></div>
-    <a href="https://mamburao.gov.ph" target="_blank" class="a-link">🌐 View All Ordinances</a>`}
-};
+// ══════════ TRANSPARENCY DATA ══════════
+const TRANS_ITEMS = [
+  {
+    icon:`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+    key:'budget', title:'Budget & Finance',
+    desc:'Annual budget, quarterly financial statements, and audit reports of the Municipality.',
+    content:`
+      <div class="m-ann"><h4>Annual Budget 2026 — Php 320,000,000</h4><p>General Fund: Php 200M &nbsp;|&nbsp; Special Education Fund: Php 55M &nbsp;|&nbsp; Trust Fund: Php 65M</p><div class="m-ann-date">Approved: January 2026</div></div>
+      <div class="m-ann"><h4>2025 Annual Financial Report</h4><p>Total Income: Php 295M &nbsp;|&nbsp; Total Expenditures: Php 287M &nbsp;|&nbsp; Surplus: Php 8M</p><div class="m-ann-date">Published: March 2026</div></div>
+      <div class="m-ann"><h4>Q1 2026 Financial Statement</h4><p>Income: Php 72M &nbsp;|&nbsp; Expenditures: Php 65M &nbsp;|&nbsp; Running Balance: Php 7M</p><div class="m-ann-date">Published: April 30, 2026</div></div>
+      <a href="https://mamburao.gov.ph" target="_blank" class="m-link">View full records on mamburao.gov.ph</a>`
+  },
+  {
+    icon:`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+    key:'projects', title:'Infrastructure Projects',
+    desc:'Status updates on ongoing and recently completed public works projects.',
+    content:`
+      <div class="m-ann"><h4>Road Concreting — Brgy. Tayamaan</h4><p>Budget: Php 4.5M &nbsp;|&nbsp; Status: Ongoing (70% complete)</p></div>
+      <div class="m-ann"><h4>Flood Control — Mamburao River</h4><p>Budget: Php 8.2M &nbsp;|&nbsp; DPWH-MIMAROPA &nbsp;|&nbsp; Status: Ongoing (65%)</p></div>
+      <div class="m-ann"><h4>10 Classrooms — Mamburao National High School</h4><p>Budget: Php 6.8M &nbsp;|&nbsp; SEF-funded &nbsp;|&nbsp; Status: Completed, 2025</p></div>
+      <div class="m-ann"><h4>Water System Expansion</h4><p>Budget: Php 12M &nbsp;|&nbsp; Coverage: Brgy. Payompon &amp; Balansay &nbsp;|&nbsp; Ongoing (55%)</p></div>`
+  },
+  {
+    icon:`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+    key:'procurement', title:'Procurement & BAC',
+    desc:'Bidding invitations, awarded contracts, and all procurement activities.',
+    content:`
+      <div class="m-ann"><h4>Invitation to Bid — Road Concreting, Brgy. Tayamaan Phase 2</h4><p>Approved Budget for Contract: Php 3.8M &nbsp;|&nbsp; Pre-bid Conference: June 5, 2026</p><div class="m-ann-date"><span class="m-tag m-tag-open">Open for Bidding</span></div></div>
+      <div class="m-ann"><h4>Purchase of Medical Supplies — MHO</h4><p>Approved Budget: Php 950,000 &nbsp;|&nbsp; Mode: Shopping</p><div class="m-ann-date"><span class="m-tag m-tag-open">Award Pending</span></div></div>
+      <div class="m-ann"><h4>Awarded — IT Equipment for Municipal Hall</h4><p>Approved Budget: Php 1.4M &nbsp;|&nbsp; Awarded Amount: Php 1,320,000</p><div class="m-ann-date">Awarded: April 15, 2026</div></div>
+      <a href="https://mamburao.gov.ph" target="_blank" class="m-link">View all BAC records</a>`
+  },
+  {
+    icon:`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    key:'officials', title:'Local Officials',
+    desc:'Directory of elected and appointed officials of the Municipality of Mamburao.',
+    content:`
+      <ul class="m-list">
+        <li><div class="m-dot">1</div><span><strong>Municipal Mayor</strong> — Office of the Mayor, Municipal Hall</span></li>
+        <li><div class="m-dot">2</div><span><strong>Municipal Vice Mayor</strong> — Office of the Vice Mayor</span></li>
+        <li><div class="m-dot">3</div><span><strong>Sangguniang Bayan</strong> — 10 regular members, Liga Chapter President, SK Federation President</span></li>
+        <li><div class="m-dot">4</div><span><strong>Municipal Administrator</strong> — Office of the Municipal Administrator</span></li>
+        <li><div class="m-dot">5</div><span><strong>Municipal Treasurer</strong> — Treasury Office</span></li>
+        <li><div class="m-dot">6</div><span><strong>Municipal Engineer</strong> — Engineering Office</span></li>
+        <li><div class="m-dot">7</div><span><strong>MENRO</strong> — Municipal Environment and Natural Resources Officer</span></li>
+      </ul>
+      <a href="https://mamburao.gov.ph" target="_blank" class="m-link">View full directory on mamburao.gov.ph</a>`
+  },
+  {
+    icon:`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`,
+    key:'saln', title:'SALN',
+    desc:'Statement of Assets, Liabilities and Net Worth filed by public officials.',
+    content:`
+      <div class="m-ann"><h4>SALN 2025 — Elected Officials</h4><p>All elected officials have filed their SALN as required under RA 6713.</p><div class="m-ann-date">Filed: April 30, 2026</div></div>
+      <div class="m-ann"><h4>SALN 2025 — Department Heads</h4><p>All department heads and key officials have filed their SALN.</p><div class="m-ann-date">Filed: April 30, 2026</div></div>
+      <div class="m-ann" style="border-left-color:#c07830"><h4>How to Request a Copy</h4><p>Submit a written request to the Office of the Municipal Administrator, or visit during office hours (Monday–Friday, 8:00 AM–5:00 PM).</p></div>`
+  },
+  {
+    icon:`<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
+    key:'ordinances', title:'Ordinances & Resolutions',
+    desc:'Laws and resolutions enacted by the Sangguniang Bayan of Mamburao.',
+    content:`
+      <div class="m-ann"><h4>Ordinance No. 2026-01 — Solid Waste Management</h4><p>Strengthening the Solid Waste Management Program of the Municipality of Mamburao.</p><div class="m-ann-date">Enacted: January 20, 2026</div></div>
+      <div class="m-ann"><h4>Ordinance No. 2026-02 — 2026 Annual Investment Program</h4><div class="m-ann-date">Enacted: February 5, 2026</div></div>
+      <div class="m-ann"><h4>SB Resolution No. 2026-10 — Release of Calamity Fund</h4><div class="m-ann-date">Enacted: March 12, 2026</div></div>
+      <div class="m-ann"><h4>SB Resolution No. 2026-15 — Supplemental Budget No. 1</h4><div class="m-ann-date">Enacted: April 22, 2026</div></div>
+      <a href="https://mamburao.gov.ph" target="_blank" class="m-link">View all ordinances on mamburao.gov.ph</a>`
+  }
+];
 
-// ── RENDER SERVICES ──
-const grid=document.getElementById('svcGrid');
-SVC.forEach((s,i)=>{
-  const c=document.createElement('div');
-  c.className='s-card';
-  c.innerHTML=`<div class="s-icon" style="background:${s.bg}">${s.icon}</div><h3>${s.title}</h3><p>${s.desc}</p><div class="s-card-arrow">›</div>`;
-  c.onclick=()=>openSvc(i);
-  grid.appendChild(c);
+// ══════════ RENDER SERVICES ══════════
+const svcGrid = document.getElementById('svcGrid');
+SVCS.forEach((s,i) => {
+  const c = document.createElement('div');
+  c.className = 'svc-card';
+  c.innerHTML = `<div class="svc-icon-wrap">${s.icon}</div>
+    <div class="svc-title">${s.title}</div>
+    <div class="svc-desc">${s.desc}</div>
+    <div class="svc-arrow">View ›</div>`;
+  c.onclick = () => openSvc(i);
+  svcGrid.appendChild(c);
 });
 
+// ══════════ RENDER TRANSPARENCY ══════════
+const transGrid = document.getElementById('transGrid');
+TRANS_ITEMS.forEach(t => {
+  const c = document.createElement('div');
+  c.className = 'trans-card';
+  c.innerHTML = `<div class="trans-card-icon">${t.icon}</div>
+    <h3>${t.title}</h3>
+    <p>${t.desc}</p>
+    <div class="trans-cta">View Records ›</div>`;
+  c.onclick = () => openTrans(t);
+  transGrid.appendChild(c);
+});
+
+// ══════════ MODAL LOGIC ══════════
+function setModal(html){ document.getElementById('mContent').innerHTML = html; document.getElementById('modal').classList.add('open'); }
+
 function openSvc(i){
-  const s=SVC[i];
-  const first=s.tabs[0];
-  const tabsHtml=s.tabs.map(t=>`<button class="tab${t===first?' on':''}" onclick="switchTab(this,'p${i}-${s.tabs.indexOf(t)}','tg${i}')">${t}</button>`).join('');
-  const panesHtml=s.tabs.map((t,j)=>`<div class="pane${t===first?' on':''}" id="p${i}-${j}">${s.panes[t]||''}</div>`).join('');
-  document.getElementById('mContent').innerHTML=`<div class="m-icon">${s.icon}</div><h2 class="m-title">${s.title}</h2><p class="m-desc">${s.desc}</p><div class="tabs" id="tg${i}">${tabsHtml}</div>${panesHtml}<div class="succ" id="succ"></div>`;
-  document.getElementById('modal').classList.add('open');
+  const s = SVCS[i];
+  const first = s.tabs[0];
+  const tabsHtml = s.tabs.map((t,j) =>
+    `<button class="m-tab${t===first?' on':''}" onclick="switchTab(this,'mp${i}t${j}','mg${i}')">${t}</button>`
+  ).join('');
+  const panesHtml = s.tabs.map((t,j) =>
+    `<div class="m-pane${t===first?' on':''}" id="mp${i}t${j}">${s.panes[t]||''}</div>`
+  ).join('');
+  setModal(`<span class="m-label">Municipal Service</span>
+    <h2 class="m-title">${s.title}</h2>
+    <p class="m-desc">${s.desc}</p>
+    <div class="m-tabs" id="mg${i}">${tabsHtml}</div>
+    ${panesHtml}
+    <div class="m-succ" id="succ"></div>`);
 }
-function openTrans(key){
-  const d=TRANS[key];
-  document.getElementById('mContent').innerHTML=`<div class="m-icon">${d.icon}</div><h2 class="m-title">${d.title}</h2>${d.html}<div class="succ" id="succ"></div>`;
-  document.getElementById('modal').classList.add('open');
+
+function openTrans(t){
+  setModal(`<span class="m-label">Public Records</span>
+    <h2 class="m-title">${t.title}</h2>
+    ${t.content}
+    <div class="m-succ" id="succ"></div>`);
 }
-function switchTab(btn,paneId,groupId){
-  document.getElementById(groupId).querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+
+function switchTab(btn, paneId, groupId){
+  document.getElementById(groupId).querySelectorAll('.m-tab').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  document.getElementById('mContent').querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('[id^="mp"]').forEach(p => { if(p.id.startsWith(paneId.substring(0,4))) p.classList.remove('on'); });
+  document.getElementById('mContent').querySelectorAll('.m-pane').forEach(p => p.classList.remove('on'));
   document.getElementById(paneId).classList.add('on');
 }
+
 function closeModal(e){
-  if(!e||e.target===document.getElementById('modal'))
+  if(!e || e.target === document.getElementById('modal'))
     document.getElementById('modal').classList.remove('open');
 }
-function done(btn,msg){
-  btn.textContent='Submitted ✓';btn.style.background='#2e7d32';btn.disabled=true;
-  const s=document.getElementById('succ');if(s){s.textContent=msg;s.classList.add('on');}
+function done(btn, msg){
+  btn.textContent = 'Submitted';
+  btn.style.background = 'var(--forest-mid)';
+  btn.disabled = true;
+  const s = document.getElementById('succ');
+  if(s){ s.textContent = msg; s.classList.add('on'); }
 }
-function vote(btn,msg){alert(msg);btn.disabled=true;btn.style.opacity='.5';}
-function pickBill(tile,name){
-  document.querySelectorAll('.bill-tile').forEach(t=>t.classList.remove('sel'));
+function vote(btn, msg){ alert(msg); btn.disabled = true; btn.style.opacity = '.5'; }
+function pickBill(tile, name){
+  document.querySelectorAll('.bill-tile').forEach(t => t.classList.remove('sel'));
   tile.classList.add('sel');
-  const f=document.getElementById('billForm');const inp=document.getElementById('billType');
-  if(f&&inp){f.style.display='block';inp.value=name;}
+  const f = document.getElementById('billForm'), inp = document.getElementById('billType');
+  if(f && inp){ f.style.display='block'; inp.value=name; }
 }
-function rnd(){return Math.floor(Math.random()*9000+1000);}
-function openSB(){document.getElementById('sidebar').classList.add('open');document.getElementById('sb-overlay').classList.add('open');}
-function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');}
-function callHL(n){if(confirm('📞 Call '+n+'?'))window.location.href='tel:'+n;}
-function closeSplash(){document.getElementById('splash').classList.add('hidden');}
-setTimeout(closeSplash,6000);
+function rnd(){ return Math.floor(Math.random()*9000+1000); }
+
+// ══════════ SIDEBAR ══════════
+function openSidebar(){ document.getElementById('hsidebar').classList.add('open'); document.getElementById('hs-overlay').classList.add('open'); }
+function closeSidebar(){ document.getElementById('hsidebar').classList.remove('open'); document.getElementById('hs-overlay').classList.remove('open'); }
+function callNum(n){ if(confirm('Call ' + n + '?')) window.location.href = 'tel:' + n; }
+
+// ══════════ INTRO ══════════
+function closeIntro(){ document.getElementById('intro').classList.add('gone'); }
+setTimeout(closeIntro, 7000);
+
+// ══════════ SCROLL ══════════
+function scroll2(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
 </script>
 </body>
 </html>
