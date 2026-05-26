@@ -43,7 +43,7 @@ body{font-family:'DM Sans',sans-serif;color:var(--ink);background:var(--white);o
   display:flex;flex-direction:column;align-items:center;gap:0;
 }
 .intro-logo{
-  width:120px;height:120px;margin-bottom:32px;
+  width:80px;height:96px;margin-bottom:32px;
   animation:logoEntry 1s cubic-bezier(.34,1.4,.64,1) both;
 }
 .intro-greeting{
@@ -82,7 +82,7 @@ nav{
   box-shadow:0 1px 0 rgba(255,255,255,.07), 0 4px 24px rgba(0,0,0,.25);
 }
 .nav-left{display:flex;align-items:center;gap:14px;}
-.nav-logomark{width:34px;height:34px;flex-shrink:0;}
+.nav-logomark{width:26px;height:32px;flex-shrink:0;}
 .nav-wordmark{
   font-family:'Cormorant Garamond',serif;
   font-size:1.35rem;font-weight:700;color:white;letter-spacing:.5px;
@@ -537,7 +537,7 @@ footer{background:var(--ink);}
 }
 .ft-brand{}
 .ft-logo{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.ft-logo-mark{width:38px;height:38px;}
+.ft-logo-mark{width:26px;height:32px;}
 .ft-wordmark{
   font-family:'Cormorant Garamond',serif;
   font-size:1.3rem;font-weight:700;color:white;
@@ -600,7 +600,7 @@ footer{background:var(--ink);}
 <div id="intro">
   <div class="intro-inner">
     <div class="intro-logo">
-      <svg id="introSvg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+      <svg id="introSvg" viewBox="0 0 100 122" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
     </div>
     <h1 class="intro-greeting">Mabuhay, <strong>Mga Mambureños!</strong></h1>
     <p class="intro-tagline">Municipality of Mamburao · Occidental Mindoro · MIMAROPA Region</p>
@@ -611,7 +611,7 @@ footer{background:var(--ink);}
 <!-- ══════════ NAV ══════════ -->
 <nav>
   <div class="nav-left">
-    <svg class="nav-logomark" id="navSvg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg class="nav-logomark" id="navSvg" viewBox="0 0 100 122" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
     <span class="nav-wordmark">MambApp</span>
     <div class="nav-sep"></div>
     <span class="nav-place">Mamburao, Occ. Mindoro</span>
@@ -897,7 +897,7 @@ footer{background:var(--ink);}
   <div class="footer-main">
     <div class="ft-brand">
       <div class="ft-logo">
-        <svg class="ft-logo-mark" id="footerSvg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
+        <svg class="ft-logo-mark" id="footerSvg" viewBox="0 0 100 122" fill="none" xmlns="http://www.w3.org/2000/svg"></svg>
         <span class="ft-wordmark">MambApp</span>
       </div>
       <p class="ft-desc">Official digital platform of the Municipality of Mamburao, Occidental Mindoro. Providing accessible, transparent government services for every Mambureño.</p>
@@ -941,29 +941,42 @@ footer{background:var(--ink);}
 <script>
 // ══════════ LOGO SVG ══════════
 // Professional mark: stylized "M" formed by two leaf/arc shapes,
-// with a small smiling face dot nested inside — keeps the MambApp identity
-// without being cartoonish. Monochromatic, scales at any size.
-const LOGO_LIGHT = buildLogo('white', 'rgba(255,255,255,.15)', 'rgba(255,255,255,.35)');
-const LOGO_DARK  = buildLogo('#1b4d10', 'rgba(27,77,16,.12)', 'rgba(27,77,16,.25)');
-
-function buildLogo(primary, faceStroke, bowColor){
-  return `<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Outer ring -->
-    <circle cx="60" cy="60" r="54" stroke="${primary}" stroke-width="3" fill="none" opacity=".25"/>
-    <!-- Stylized leaf/M shape: two arcs meeting at top -->
-    <path d="M 60 18 C 32 18 20 36 20 60 C 20 84 32 98 60 98 C 88 98 100 84 100 60 C 100 36 88 18 60 18 Z" fill="${primary}" opacity=".08"/>
-    <!-- Bold M letterform inside circle -->
-    <path d="M 28 80 L 28 38 L 60 62 L 92 38 L 92 80" stroke="${primary}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- Small accent: underline dot row (represents community/people) -->
-    <circle cx="44" cy="90" r="3.5" fill="${primary}" opacity=".6"/>
-    <circle cx="60" cy="90" r="3.5" fill="${primary}"/>
-    <circle cx="76" cy="90" r="3.5" fill="${primary}" opacity=".6"/>
+// ══════════ LOGO ══════════
+// Concept: A location pin / teardrop — "Mamburao on the map."
+// Inside: a smiling face in true negative space (cutouts through the solid fill)
+// so at any color the face reads clearly. Below: two dots for the "pp" in MambApp.
+// Professional, place-anchored, warmly unique.
+function makeLogo(pinColor, bgColor){
+  return `<svg viewBox="0 0 100 122" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Pin drop shape -->
+    <path d="M50 6 C26 6 10 23 10 46 C10 72 50 116 50 116 C50 116 90 72 90 46 C90 23 74 6 50 6 Z"
+          fill="${pinColor}"/>
+    <!-- Face circle cutout (negative space) -->
+    <circle cx="50" cy="44" r="20" fill="${bgColor}"/>
+    <!-- Eye cutouts -->
+    <circle cx="41.5" cy="39" r="3.8" fill="${pinColor}"/>
+    <circle cx="58.5" cy="39" r="3.8" fill="${pinColor}"/>
+    <!-- Smile cutout -->
+    <path d="M38 50 Q50 61 62 50" stroke="${pinColor}" stroke-width="3.2"
+          stroke-linecap="round" fill="none"/>
+    <!-- Two accent dots below: the "pp" in MambApp -->
+    <circle cx="41" cy="119" r="3.2" fill="${pinColor}" opacity="0.6"/>
+    <circle cx="59" cy="119" r="3.2" fill="${pinColor}" opacity="0.6"/>
   </svg>`;
 }
 
-document.getElementById('introSvg').outerHTML  = '<svg id="introSvg" class="intro-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">' + buildLogo('white','rgba(255,255,255,.15)','rgba(255,255,255,.3)').replace(/<svg[^>]*>/,'').replace('</svg>','') + '</svg>';
-document.getElementById('navSvg').outerHTML    = '<svg class="nav-logomark" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">' + buildLogo('white','rgba(255,255,255,.15)','rgba(255,255,255,.3)').replace(/<svg[^>]*>/,'').replace('</svg>','') + '</svg>';
-document.getElementById('footerSvg').outerHTML = '<svg class="ft-logo-mark" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">' + buildLogo('white','rgba(255,255,255,.15)','rgba(255,255,255,.3)').replace(/<svg[^>]*>/,'').replace('</svg>','') + '</svg>';
+function injectLogo(id, pinColor, bgColor, extraClass){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const svg = makeLogo(pinColor, bgColor);
+  const inner = svg.replace(/<svg[^>]*>/, '').replace('</svg>', '');
+  el.outerHTML = `<svg id="${id}" ${extraClass ? `class="${extraClass}"` : ''} viewBox="0 0 100 122" fill="none" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+}
+// On dark (green) backgrounds: white pin, green face circle shows bg
+// On light backgrounds: green pin, white face circle shows bg
+injectLogo('introSvg',  'white',   '#1b4d10', 'intro-logo');
+injectLogo('navSvg',    'white',   '#1b4d10', 'nav-logomark');
+injectLogo('footerSvg', 'white',   '#0a1e06', 'ft-logo-mark');
 
 // ══════════ BARANGAY DATA ══════════
 const BRGYS = [
@@ -1262,7 +1275,7 @@ const SVCS = [
     panes: {
       'Latest': `
         <div class="m-ann"><h4>Mamburao Recognized as Cleanest Municipality in MIMAROPA</h4><p>The municipality was once again recognized for its solid waste management program at the regional level.</p><div class="m-ann-date">May 17, 2026</div></div>
-        <div class="m-ann"><h4>10 New Classrooms Opened at Mamburao NHS</h4><p>New classrooms funded through the Special Education Fund (SEF) are now open.</p><div class="m-ann-date">May 12, 2026</div></div>
+        <div class="m-ann"><h4>New Classrooms Opened at Occidental Mindoro National High School</h4><p>New classrooms funded through the Special Education Fund (SEF) are now open at OMNHS in Barangay Payompon.</p><div class="m-ann-date">May 12, 2026</div></div>
         <div class="m-ann"><h4>Road Concreting Project Begins in Brgy. Tayamaan</h4><p>Construction has commenced and is expected to be completed within three months.</p><div class="m-ann-date">May 8, 2026</div></div>`,
       'Government': `
         <div class="m-ann"><h4>2026 Annual Investment Plan Approved</h4><p>The Sangguniang Bayan has approved the 2026 Annual Investment Plan, with increased allocation for infrastructure.</p><div class="m-ann-date">April 30, 2026</div></div>
@@ -1293,7 +1306,7 @@ const TRANS_ITEMS = [
     content:`
       <div class="m-ann"><h4>Road Concreting — Brgy. Tayamaan</h4><p>Budget: Php 4.5M &nbsp;|&nbsp; Status: Ongoing (70% complete)</p></div>
       <div class="m-ann"><h4>Flood Control — Mamburao River</h4><p>Budget: Php 8.2M &nbsp;|&nbsp; DPWH-MIMAROPA &nbsp;|&nbsp; Status: Ongoing (65%)</p></div>
-      <div class="m-ann"><h4>10 Classrooms — Mamburao National High School</h4><p>Budget: Php 6.8M &nbsp;|&nbsp; SEF-funded &nbsp;|&nbsp; Status: Completed, 2025</p></div>
+      <div class="m-ann"><h4>New Classrooms — Occidental Mindoro National High School (OMNHS)</h4><p>Budget: Php 6.8M &nbsp;|&nbsp; SEF-funded &nbsp;|&nbsp; Status: Completed, 2025</p></div>
       <div class="m-ann"><h4>Water System Expansion</h4><p>Budget: Php 12M &nbsp;|&nbsp; Coverage: Brgy. Payompon &amp; Balansay &nbsp;|&nbsp; Ongoing (55%)</p></div>`
   },
   {
